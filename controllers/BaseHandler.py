@@ -27,7 +27,9 @@ class WebBaseHandler(tornado.web.RequestHandler):
         if not email: return None
         current_user = User(db_settings)
     
-        
+    
+    def _on_auth(self):
+        pass
     
     def setJsonType(self):
         self.set_header("Content-Type", "application/json")

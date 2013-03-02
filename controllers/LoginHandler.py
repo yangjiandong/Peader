@@ -18,4 +18,4 @@ class LoginHandler(tornado.web.RequestHandler):
         user = User()
         user.find_by_email_and_password(email, password)
         
-        self.write("Email: " + user.user["email"])
+        self.write("Email: " + user["email"])

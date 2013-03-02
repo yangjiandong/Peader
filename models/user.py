@@ -15,7 +15,7 @@ class User(Model):
     def __init__(self):
         
         Model.__init__(self)
-        self.user = None
+        
         
         
     def find_by_email_and_password(self, email, password ):
@@ -27,9 +27,9 @@ class User(Model):
         except MySQLdb.Error, e:
             logging.error("Fetch Failed error : %s", e.args[1])
             
-        self.user = cursor.fetchone()
-        if self.user and self._check_password(password):
-            return self.user
+        self._data = cursor.fetchone()
+        if self._data and self._check_password(password):
+            return self._data
         
         #not aut
         return None
@@ -41,7 +41,7 @@ class User(Model):
         return cur.fetchone()
        
     def _check_password(self, submitted_password):
-        return self.user["encrypted_password"] == self._secure_hash("%s--%s" %(self.user["password_salt"], submitted_password ))
+        return self._data["encrypted_password"] == self._secure_hash("%s--%s" %(self._data["password_salt"], submitted_password ))
     
     
     def _encrypt_password(self, submmited_password):

@@ -28,7 +28,7 @@ class Model:
         
         self.host = Model._db_settings["host"]
         self._db = None
-        
+        self._data = None
         self.max_idle_sec = 25200
         self._last_use_sec = time.time()
         
@@ -37,6 +37,9 @@ class Model:
         
         except Exception:
             logging.error("Cannot connect MySQL on %s", self.host, exc_info = True)
+    
+    def __getitem__(self, key):
+        return self._data[key]
     
     def __del__(self):
         self.close()
