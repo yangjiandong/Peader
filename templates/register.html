@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+
+<html>
+    
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>注册</title>
+
+<link rel="stylesheet" type="text/css" href="{{static_url("css/login.css")}}" />
+<link rel="stylesheet" type="text/css" href="{{static_url("css/button-style.css")}}" />
+
+</head>
+
+<body>
+    <div id="base">
+        <div id="main-head">
+            <img id="main-logo"  src="{{static_url("images/main-logo.png")}}"/>
+        
+        </div>
+        
+        <div id="main-content">
+            <div id="left-content">
+                <img id="content-pic" src="{{static_url("images/pic_left.png")}}"/ >
+            </div>
+            
+            <div id="right-content">
+                <div id="login-info"> 
+                <p>用户注册</p>
+                </div>
+                
+                <form id="login-form" action="/register" method="post">
+                
+                    <div id="email-div">
+                        <label for="Email">用户邮箱</label>
+                        <input id="Email" type="text" name="Email"/> 
+                    </div>
+                    
+                    <div id="password-div">
+                        <label for="Password">用户密码</label>
+                        <input id="Password" type="password"  name="Password" placeholder="不少于六位"/> 
+                    </div>
+                    
+                    <div id="submit-div">
+                    <input class="p-button p-button-submit"  type="submit" value="注册" /> 
+                    
+                    </div>
+                    
+                </form>
+             </div>
+            
+            
+            
+        </div>
+        <div style="clear: left;"> </div>
+        
+        <div id="main-footer">
+            <ul>
+                 <li>&copy; 2012 RSS阅读</li>
+                <li><a target="_blank"  class = "footer_link"  href="#">关于我们</a></li>
+                <li><a target="_blank" class = "footer_link"  href="#">隐私政策</a></li>
+                <li><a target="_blank"  class = "footer_link"  href="#">使用条款</a></li>
+            </ul>
+ 
+        
+        </div>
+    
+    </div>
+    
+
+</body>
+</html>
