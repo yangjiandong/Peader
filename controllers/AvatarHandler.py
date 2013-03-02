@@ -19,7 +19,7 @@ class AvatarHandler(tornado.web.RequestHandler):
     
     def _make_gravatar_url(self, email):
         
-        
+        #这里需要配置成在主机的默认头像
         default = "http://farm9.staticflickr.com/8096/8519545439_459f63bf5b_t_d.jpg"
         size = 60
         gravatar_url = "http://www.gravatar.com/avatar/" + hashlib.md5(email.lower()).hexdigest() + "?"
