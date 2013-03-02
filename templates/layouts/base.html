@@ -5,11 +5,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-{% block header %} {%end%}
+{% block header %} {% end %}
 </head>
 
 <body>
     <div id="base">
+        
         <div id="main-head">
             
              {% block main_header %} {% end %}
@@ -17,7 +18,7 @@
         </div>
         
         <div id="main-content">
-            {% content %} {% end %}
+            {% block content %} {% end %}
             
             
             
@@ -25,7 +26,7 @@
         <div style="clear: left;"> </div>
         
         
-        {% footer %} {% end %}
+        {% block footer %} {% end %}
     
     </div>
     

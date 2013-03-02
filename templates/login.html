@@ -1,24 +1,23 @@
-<!DOCTYPE html>
+{% extends  "layouts/base.html" %}
 
-<html>
-    
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>登录</title>
+{% block header %}
+    <title>登录</title>
 
-<link rel="stylesheet" type="text/css" href="{{static_url("css/login.css")}}" />
-<link rel="stylesheet" type="text/css" href="{{static_url("css/button-style.css")}}" />
+    <link rel="stylesheet" type="text/css" href="{{static_url("css/login.css")}}" />
+    <link rel="stylesheet" type="text/css" href="{{static_url("css/button-style.css")}}" />
+{% end %}
 
-</head>
 
-<body>
-	<div id="base">
-    	<div id="main-head">
+
+	
+	    
+    	 {% block main_header %}
         	<img id="main-logo"  src="{{static_url("images/main-logo.png")}}"/>
         
-        </div>
+         {% end %}
         
-        <div id="main-content">
+        
+         {% block content %}
         	<div id="left-content">
             	<img id="content-pic" src="{{static_url("images/pic_left.png")}}"/ >
             </div>
@@ -47,25 +46,12 @@
                     
                 </form>
              </div>
-            
-            
-            
-        </div>
-        <div style="clear: left;"> </div>
+       
+       {% end %}
     	
-        <div id="main-footer">
-          	<ul>
-                 <li>&copy; 2012 RSS阅读</li>
-                <li><a target="_blank"  class = "footer_link"  href="#">关于我们</a></li>
-                <li><a target="_blank" class = "footer_link"  href="#">隐私政策</a></li>
-                <li><a target="_blank"  class = "footer_link"  href="#">使用条款</a></li>
-            </ul>
- 
-        
-        </div>
+       {% block footer %}
+    	    {% include "layouts/footer.html" %}
+       
+       {% end %}
     
-    </div>
-    
-
-</body>
-</html>
+  
