@@ -16,29 +16,53 @@ class User(Model):
         
         Model.__init__(self)
         
+    @staticmethod
+    def find_by_email(email):
         
+        user = User()
+        user._find_by_email(email)
+        return user
+ 
+    @staticmethod  
+    def find_by_email_and_password(email, password ):
         
-    def find_by_email_and_password(self, email, password ):
-        
-        cursor = self.cursor(MySQLdb.cursors.DictCursor)
-        try:
-            cursor.execute("""SELECT * FROM rss_users WHERE `email` = '%s'""" %(email))
-        
-        except MySQLdb.Error, e:
-            logging.error("Fetch Failed error : %s", e.args[1])
-            
-        self._data = cursor.fetchone()
-        if self._data and self._check_password(password):
-            return self._data
-        
+        user = User()
+        user._on_auth(email)
+        if user._data and user._check_password(password):
+            return user
         #not aut
-        return None
+        user._data = None
+        return user
     
-    def find_by_email(self, email):
-        cur = self.cursor()
-        query_statement = """SELECT * FROM `rss_users` WHERE `email` = '%s'"""
-        command = cur.execute(query_statement %(email))
-        return cur.fetchone()
+    def _on_auth(self, email):
+        cursor = self.cursor()
+        try:
+            command = cursor.execute("""SELECT `id`, `email`, `encrypted_password`, `password_salt` FROM `rss_users` WHERE `email` = %s""" ,(email))
+            if command == 1:
+                self._data = cursor.fetchone()
+        except MySQLdb.Error, e:
+         
+            logging.error("Insert entry Failed error : %s", e.args[1])
+        
+        finally:
+            cursor.close()
+            
+    def _find_by_email(self, email): 
+        cursor = self.cursor()
+        try:
+            command = cursor.execute("""SELECT `id`, `email` FROM `rss_users` WHERE `email` = %s""" ,(email))
+            if command == 1:
+                self._data = cursor.fetchone()
+        except MySQLdb.Error, e:
+         
+            logging.error("Insert entry Failed error : %s", e.args[1])
+        
+        finally:
+            cursor.close()
+        
+        
+                
+    
        
     def _check_password(self, submitted_password):
         return self._data["encrypted_password"] == self._secure_hash("%s--%s" %(self._data["password_salt"], submitted_password ))

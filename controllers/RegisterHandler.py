@@ -6,7 +6,7 @@ from models.user import User
 
 
 
-class RegisterHandler(BaseHandler.WebBaseHandler):
+class RegisterHandler(BaseHandler.BaseHandler):
     
     def get(self):
         

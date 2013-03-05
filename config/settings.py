@@ -1,7 +1,4 @@
 import tornado.options
-
-
-
 from tornado.options import define, options
 
 define("port", default = 8000, help  = "run on given port", type = int)

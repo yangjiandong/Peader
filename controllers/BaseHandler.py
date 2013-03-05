@@ -5,19 +5,20 @@ from models.user import User
 
 
     
-class WebBaseHandler(tornado.web.RequestHandler):
+class BaseHandler(tornado.web.RequestHandler):
     
     def get(self):
         
         self.set_status(404)
         self.write('{"status":"error","msg":"Page not found"}')
         
-    @property
-    def db_settings(self):
-        
-             return self.application.db_settings
-         
-             
+
+    def get_error_html(self, status_code, **kwargs):
+        if status_code == 404:
+            self.write(self.render_string("404.html"))
+        else:
+            return tornado.web.RequestHandler.get_error_html(self, status_code,
+                                                             **kwargs)
     
     
     
@@ -25,7 +26,11 @@ class WebBaseHandler(tornado.web.RequestHandler):
         #self.setJsonType()
         email = self.get_secure_cookie("member_auth")
         if not email: return None
-        current_user = User(db_settings)
+        
+        user = User.find_by_email(email)
+        return user
+        
+        
     
     
     def _on_auth(self):

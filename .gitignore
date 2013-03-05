@@ -1,7 +1,6 @@
-*.sql~
+*~
 *.psd
 *.pyc
 .project
 .pydevproject
-.gitignore~
 .settings/

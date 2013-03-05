@@ -14,10 +14,9 @@ import tornado.options
 from models import model
 
 import os.path
-from controllers import  LoginHandler,AvatarHandler,RegisterHandler
+from controllers import  LoginHandler,AvatarHandler,RegisterHandler, HomeHandler
 
 from config.settings import *
-
 
 
 
@@ -31,6 +30,7 @@ class RssWebReaderApp(tornado.web.Application):
     def __init__(self):
         
         handlers = [
+                    (r'/', HomeHandler.HomeHandler),
                     (r'/login', LoginHandler.LoginHandler),
                     (r'/register', RegisterHandler.RegisterHandler),
                     (r'/avatar', AvatarHandler.AvatarHandler),

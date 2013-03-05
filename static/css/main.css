@@ -1,0 +1,49 @@
+@charset "utf-8";
+/* 主要样式 */
+
+#main-logo {
+	float:left;
+	width:180px;
+	height:60px;
+}
+#logo {
+	
+	margin-left:50px;
+	margin-top:20px;	
+}
+
+#user-info {
+	margin-right:50px;
+	margin-top:20px;
+	float: left;
+	position:absolute;
+	right: 0px;
+	
+}
+
+#user-info ul{
+	
+	
+}
+
+#user-info  ul > li {
+	
+	display: inline;
+	padding: 2px;
+	margin: 2px;
+	font-size: 12px;
+}
+
+#content-nav {
+	width: 240px;
+	height: 400px;
+	
+}
+
+#add-subscription {
+	
+	width: 240px;
+	height: 60px;
+	/*border-bottom:2px #fe580f solid;*/
+	box-shadow:  5px 5px 5 rgba(0,0,0,.1),inset 0 -1px 0 rgba(0,0,0,.07);
+}

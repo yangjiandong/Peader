@@ -65,7 +65,7 @@ class Model:
     def rollback(self):
         self._db.rollback()
         
-    def cursor(self, cursorType = None):
+    def cursor(self, cursorType = MySQLdb.cursors.DictCursor):
         self._ensure_connected()
         if cursorType == None:
             return self._db.cursor()
@@ -80,12 +80,12 @@ class Model:
         
         self._last_use_sec = time.time()  
         
-        
-    def is_empty(self):  
-        empty = False
+    @property  
+    def empty(self):  
+        is_empty = False
         if self._data == None:
-            empty = True 
-        return empty
+            is_empty = True 
+        return is_empty
         
     @staticmethod
     def create():

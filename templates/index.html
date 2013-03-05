@@ -1,3 +1,50 @@
 {% extends "layouts/base.html" %}
 
+{% block header%}
+    <title>Peader</title>
+    
+    <link rel="stylesheet" type="text/css" href="{{static_url("css/base.css")}}" />
+    <link rel="stylesheet" type="text/css" href="{{static_url("css/main.css")}}" />
+{% end %}
 
+{% block main_header %}
+    <div id="main-logo">
+                <img id="logo"  src="{{static_url("images/main-logo.png")}}"/> 
+    </div>
+    
+    <div id="user-info">
+       <ul>
+           <li>
+                <a href=""> 收藏</a>
+           </li>
+           <li>
+                <a href=""> 主页</a>  
+           </li>
+           <li>
+               <a href="/"><img src="{{ gravatar_for(user['email'])}}" />  </a>
+                 
+           </li> 
+       </ul>
+    </div>
+    
+{% end %}
+
+{% block content %}
+    
+    <div id="content-nav">
+        <div id="add-subscription">
+            <input type="button"  value="订阅"/>
+        </div>
+        
+    </div>
+    
+   <div id="content-viewer">
+       
+       
+       
+   </div>
+{% end %}
+
+
+
+    
