@@ -41,12 +41,15 @@ class Model:
     def __getitem__(self, key):
         return self._data[key]
     
+    def __setitem__(self, key, value):
+        self._data[key] = value
+    
     def __del__(self):
         self.close()
     
     def close(self):
         
-        if self._db is not None:
+        if getattr(self, "_db", None) is not None:
             self._db.close()
             self._db = None
     
@@ -78,7 +81,11 @@ class Model:
         self._last_use_sec = time.time()  
         
         
-        
+    def is_empty(self):  
+        empty = False
+        if self._data == None:
+            empty = True 
+        return empty
         
     @staticmethod
     def create():
