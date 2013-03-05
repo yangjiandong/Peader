@@ -15,18 +15,39 @@ class Entry(Model):
         
         Model.__init__(self)
     
-    def _create(self, rss_entry):
-        
-        pass
-        
-    
-    def _save(self):
+    def _create(self, rss_entry, site_url):
         
         cursor = self.cursor()
         try:
-            cursor.execute("INSERT INTO `rss_site_entries`(`id`, `site_url`, `title`, `author`, `link`, `description`, `entriy_md5`) \
-                                    VALUE(NULL, %s, %s, %s, NULL, NULL, 0)",
-                        (self['id'], self['site_url'], self['title'], self['author'], self['lnik'],self['description'], self.entry_md5 ))
+            cursor.execute("INSERT INTO `rss_site_entries` VALUES(NULL, %s, %s, %s, %s, %s, %s, NULL, NULL)",
+                        (site_url, rss_entry.title, rss_entry.author, rss_entry.link,rss_entry.description, rss_entry.entry_md5 ))
+            self.commit()
+        except MySQLdb.Error, e:
+            self.rollback()
+            logging.error("Insert entry Failed error : %s", e.args[1])
+            return False
+        
+        finally:
+            cursor.close()
+        
+        return True
+    
+    
+    
+    def _get_entry_md5(self):
+        
+        return hashlib.md5(self["title"] + self["description"]).hexdigest()
+    
+    def save(self):
+        
+        self.entry_md5 = self._get_entry_md5()
+        cursor = self.cursor()
+        try:
+            cursor.execute("UPDATE `rss_site_entries` \
+                        SET `title` = %s, `description` = %s, `entry_md5` = %s \
+                        WHERE `id` = %s",
+                        (self['title'], self['description'], self.entry_md5, self['id']))
+            self.commit()
         except MySQLdb.Error, e:
             self.rollback()
             logging.error("Insert entry Failed error : %s", e.args[1])
@@ -40,8 +61,36 @@ class Entry(Model):
     
     @property
     def entry_md5(self):
+
+        return self['entry_md5']
+    
+    @staticmethod 
+    def find_by_link(link):
         
-        return hashlib.md5(self['title'] + self['description']).hexdigest()
+        entry = Entry()
+        cursor = entry.cursor(MySQLdb.cursors.DictCursor)
+        try:
+            cursor.execute("SELECT id, site_url, title, author, link, description, entry_md5 \
+                           FROM `rss_site_entries`\
+                           WHERE `link` = %s",
+                        (link))
+            entry._data = cursor.fetchone()
+        except MySQLdb.Error, e:
+            logging.error("find by link entry Failed error : %s", e.args[1])
+        
+        finally:
+            cursor.close()
+            
+        return entry
+        
+    @staticmethod
+    def create(rss_entry, site_url):
+        
+        entry = Entry()
+        return entry._create(rss_entry, site_url)
+        
+        
+        
     
         
         

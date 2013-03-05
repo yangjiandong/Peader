@@ -53,7 +53,7 @@ CREATE TABLE `rss_site_entries` (
 	
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXIST `rss_user_entries`;
+ALTER TABLe `rss_site_entries` ADD UNIQUE KEY(`link`); 
 
 DROP TABLE IF EXIST `rss_user_entries`;
 CREATE TABLE `rss_user_entries` (

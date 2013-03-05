@@ -8,17 +8,40 @@ class RssCrawler:
     
     
     def __init__(self, url):
-        
+        """ 有些网站RSS聚集有重复的链接，但内容却不一样的
+        """
         self.entries = []
+        
         feed = feedparser.parse(url)
         entries = feed.entries
-        
         for entry in entries:
             self.add_entry(RssEntry(entry))
         
     
     def add_entry(self, rss_entry):
+       
         self.entries.append(rss_entry)
+    
+    def run(self):
+        self.updatd_site_entry()
+        
+    def updatd_site_entry(self):
+        for rss_entry in self.entries:
+        
+            entry = Entry.find_by_link(rss_entry.link)
+            if entry.is_empty():
+            
+                Entry.create(rss_entry, site_url )
+            
+            elif entry.entry_md5 != rss_entry.entry_md5:
+#               print "rss_link : %s" %(rss_entry.link)
+#               print "link : %s" %(entry['link'])
+#               print "entry_md5     : %s"  %(entry.entry_md5())
+#               print "rss_entry_md5 : %s"  %(rss_entry.entry_md5())
+#            entry['description'] = rss_entry.description
+#            entry['title'] = rss_entry.title
+#            print "After entry_md5 : %s"  %(entry.entry_md5())
+                entry.save()
 
 class RssEntry:
     
@@ -31,9 +54,6 @@ class RssEntry:
         self.link = self._link()
         self.description = self._description()
         
-        
-        
-
     @property
     def entry_md5(self):
         return self._get_entry_md5()
@@ -51,8 +71,7 @@ class RssEntry:
         elif "description" in self.entry:
             description = self.entry.description
         
-        else:
-            
+        else:  
             description = self.entry.summary
         
         return description
