@@ -8,7 +8,7 @@ body,ul,ol,h1,h2,h3,h4,h5,h6,form,li,p,input,select,legend,textarea,fieldset{mar
 body {
 	font-size: 15px/ 1.5em;
 	font-family: Arial, "MS Trebuchet", sans-serif;
-
+	
 }
 
 html {
@@ -20,8 +20,11 @@ html {
 }
 
 #base {
+	
 	min-width:1080px;
+	width:auto;
 	margin:0 auto;
+	
 	
 }
 	

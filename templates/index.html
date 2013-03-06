@@ -5,6 +5,8 @@
     
     <link rel="stylesheet" type="text/css" href="static/css/base.css"" />
     <link rel="stylesheet" type="text/css" href="static/css/main.css" />
+    <link rel="stylesheet" type="text/css" href="static/css/button-style.css" />
+    
 {% end %}
 
 {% block main_header %}
@@ -15,10 +17,10 @@
     <div id="user-info">
        <ul>
            <li>
-                <a href=""> 收藏</a>
+                <a href="">收藏</a>
            </li>
            <li>
-                <a href=""> 主页</a>  
+                <a href="">主页</a>  
            </li>
            <li>
                <a href="/"><img src="{{ gravatar_for(user['email'])}}" />  </a>
@@ -33,37 +35,67 @@
     
     <div id="content-nav">
         <div id="add-subscription">
-            <input type="button"  value="订阅"/>
+            <span class="p-button p-button-submit">订   阅</span>
         </div>
         
-        <div id="subscription">
-          
-            <ul>
-                <a><div>科技</div></a>
-                <li>
-                    <ul>
-                        <li><a href = “”>果壳</a></li>
+        <div id="home-section"><a>主页</a></div>
+        
+        <div id="sub-section">
+            
+            <div><span>订阅</span></div>
+            <div>
+            <ul id="item-tree">
+                
+                <li class="item-list">
+                    
+                    
+                    <div>
+                        <div class=""> </div>
+                        <div>科技</div>
+                        <!-- <div class="entry-count">(20)</div> -->
+                    </div>
+                    
+                    
+                    <ul class="item">
+                        <li>
+                            <a href = “”>
+                                <!-- style="background-image: url(/favicons?site=)" -->
+                                <div class="item-icon"></div>
+                                <div class="item-name">果壳</div>
+                                <div class="entry-count">(615)</div>
+                            </a>
+                        </li>
+                        
+                        <li>
+                            <a href = “”>
+                                <!-- style="background-image: url(/favicons?site=)" -->
+                                <div class="item-icon"></div>
+                                <div class="item-name">酷狗</div>
+                                <div class="entry-count">(15)</div>
+                            </a>
+                        </li>
+                        
                     </ul>
                 </li>
-            </ul>
             
-            <ul>
-                <a><div>音乐</div></a>
-                <li>  
+               
+                <li>   <div>音乐</div>
                     <ul>
                         <li><a href = “”>虾米</a></li>
+                        <li><a href = “”>酷狗</a></li>
                     </ul>
                 </li>
             </ul>
-            
-            
+            </div>
         </div>
         
     </div>
     
    <div id="content-viewer">
        
-       
+       <div id="viewer-head">
+           <p>viewer</p>
+       </div>
        
    </div>
 {% end %}

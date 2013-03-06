@@ -97,12 +97,12 @@ input[type=sumbit].p-button{
   color: #fff;
   text-shadow: 0 1px rgba(0,0,0,0.1);
   background-color: #3e86fd;
-  background-image: -webkit-gradient(linear,left top,left bottom,from(#ff6e90),to(#ff957d));
+  background-image: -webkit-gradient(linear,left top,left bottom,from(#3e86fd),to(#3e86fd));
   background-image: -webkit-linear-gradient(top,#3e86fd,#3e86fd);
-  background-image: -moz-linear-gradient(top,#ff6e90,#e00716);
-  background-image: -ms-linear-gradient(top,#ff6e90,#e00716);
-  background-image: -o-linear-gradient(top,#ff6e90,#e00716));
-  background-image: linear-gradient(top,#ff6e90,#e00716);
+  background-image: -moz-linear-gradient(top,#3e86fd,#3e86fd);
+  background-image: -ms-linear-gradient(top,#3e86fd,#3e86fd);
+  background-image: -o-linear-gradient(top,#3e86fd,#3e86fd);
+  background-image: linear-gradient(top,#3e86fd,#3e86fd);
  }
  
  .p-button-submit:hover {
@@ -110,12 +110,12 @@ input[type=sumbit].p-button{
   color: #fff;
   text-shadow: 0 1px rgba(0,0,0,0.3);
   background-color: #176dfc;
-  background-image: -webkit-gradient(linear,left top,left bottom,from(#ff6e90),to(#ff957d));
+  background-image: -webkit-gradient(linear,left top,left bottom,from(#3e86fd),to(#176dfc));
   background-image: -webkit-linear-gradient(top,#3e86fd,#176dfc);
-  background-image: -moz-linear-gradient(top,#ff6e90,#e00716);
-  background-image: -ms-linear-gradient(top,#ff6e90,#e00716);
-  background-image: -o-linear-gradient(top,#ff6e90,#e00716));
-  background-image: linear-gradient(top,#ff6e90,#e00716);
+  background-image: -moz-linear-gradient(top,#ff6e90,#176dfc);
+  background-image: -ms-linear-gradient(top,#ff6e90,#176dfc);
+  background-image: -o-linear-gradient(top,#ff6e90,#176dfc);
+  background-image: linear-gradient(top,#ff6e90,#176dfc);
  }
 
 
