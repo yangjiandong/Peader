@@ -3,13 +3,13 @@
 {% block header%}
     <title>Peader</title>
     
-    <link rel="stylesheet" type="text/css" href="{{static_url("css/base.css")}}" />
-    <link rel="stylesheet" type="text/css" href="{{static_url("css/main.css")}}" />
+    <link rel="stylesheet" type="text/css" href="static/css/base.css"" />
+    <link rel="stylesheet" type="text/css" href="static/css/main.css" />
 {% end %}
 
 {% block main_header %}
     <div id="main-logo">
-                <img id="logo"  src="{{static_url("images/main-logo.png")}}"/> 
+                <img id="logo"  src="static/images/main-logo.png"/> 
     </div>
     
     <div id="user-info">
@@ -34,6 +34,29 @@
     <div id="content-nav">
         <div id="add-subscription">
             <input type="button"  value="订阅"/>
+        </div>
+        
+        <div id="subscription">
+          
+            <ul>
+                <a><div>科技</div></a>
+                <li>
+                    <ul>
+                        <li><a href = “”>果壳</a></li>
+                    </ul>
+                </li>
+            </ul>
+            
+            <ul>
+                <a><div>音乐</div></a>
+                <li>  
+                    <ul>
+                        <li><a href = “”>虾米</a></li>
+                    </ul>
+                </li>
+            </ul>
+            
+            
         </div>
         
     </div>

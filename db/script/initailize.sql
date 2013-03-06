@@ -22,6 +22,7 @@ CREATE TABLE `rss_users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
+
 DEROP TABLE IF EXISTS `rss_sites`;
 CREATE TABLE `rss_sites` (
 	`url` VARCHAR(255) NOT NULL,
@@ -55,9 +56,35 @@ CREATE TABLE `rss_site_entries` (
 
 ALTER TABLe `rss_site_entries` ADD UNIQUE KEY(`link`); 
 
-DROP TABLE IF EXIST `rss_user_entries`;
-CREATE TABLE `rss_user_entries` (
+
+
+DROP TABLE IF EXISTS `rss_user_sites`;
+CREATE TABLE `rss_user_sites` (
+
+	`user_id` MEDIUMINT(8) unsigned NOT NULL,
+	`site_url`  VARCHAR(255) NOT NULL,
+	`name` VARCHAR(100)  NOT NULL,
+	`site_group` VARCHAR(100) DEFAULT NULL,
 	
+	`updated_at` TIMESTAMP NOT NULL,
+	`created_at` TIMESTAMP NOT NULL,
+
+	FOREIGN KEY (`user_id`) REFERENCES `rss_users` (`id`),
+	FOREIGN KEY (`site_url`) REFERENCES `rss_sites` (`url`)
+
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `rss_user_entries`;
+CREATE TABLE `rss_user_entries` (
+
+	`entry_id` BIGINT(20) unsigned NOT NULL,
+	`user_id` MEDIUMINT(8) unsigned NOT NULL,
+	`read` TINYINT(1)	 UNSIGNED NOT NULL DEFAULT 0,
+	`love`	 TINYINT(1)	 UNSIGNED NOT NULL DEFAULT 0,
+	`tags` VARCHAR(255),
+
+	FOREIGN KEY (`user_id`) REFERENCES `rss_users` (`id`),
+	FOREIGN KEY (`entry_id`) REFERENCES `rss_site_entries` (`id`)
 
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

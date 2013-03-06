@@ -1,6 +1,19 @@
 @charset "utf-8";
 /* 登录页面样式*/
 
+#main-logo {
+	
+	width:180px;
+	height:60px;
+}
+
+#main-content{
+	
+	width: 900px;
+	height: 550px;
+	margin: 20px auto;
+}
+
 
 #login-form{
 	
@@ -39,6 +52,36 @@
 	width:300px;
 	height: 25px;
 }
+
+#controll-div 
+{
+	width:280px;
+	padding: 5px;
+	margin: 5px 25px;
+
+	height: 40px;
+}
+
+#controll-div input
+{
+	width: 90px;
+	
+}
+
+#submit-div {
+	float:left;
+	width: 90px;
+	
+}
+
+#reg-div  {
+	float:right;
+	width:90px;
+	right:0px;
+}
+
+
+
 
 
 

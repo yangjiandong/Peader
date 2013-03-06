@@ -34,12 +34,15 @@ html {
 	border-bottom:2px #fe580f solid;
 }
 
-
-
-#main-content {
+#logo {
 	
-	
+	margin-left:50px;
+	margin-top:20px;	
 }
+
+
+
+
 
 #left-content {
 	width:500px;

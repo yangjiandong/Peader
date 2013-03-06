@@ -2,57 +2,51 @@
 
 {% block header %}
     <title>登录</title>
-
     <link rel="stylesheet" type="text/css" href="{{static_url("css/base.css")}}" />
     <link rel="stylesheet" type="text/css" href="{{static_url("css/login.css")}}" />
     <link rel="stylesheet" type="text/css" href="{{static_url("css/button-style.css")}}" />
 {% end %}
 
-
-
-	
-	    
-    	 {% block main_header %}
-        	<img id="main-logo"  src="{{static_url("images/main-logo.png")}}"/>
+{% block main_header %}
+    <img id="logo"  src="{{static_url("images/main-logo.png")}}"/>
+{% end %}
         
-         {% end %}
-        
-        
-         {% block content %}
-        	<div id="left-content">
-            	<img id="content-pic" src="{{static_url("images/pic_left.png")}}"/ >
-            </div>
+{% block content %}
+    <div id="left-content">
+        <img id="content-pic" src="{{static_url("images/pic_left.png")}}"/ >
+    </div>
             
-            <div id="right-content">
-            	<div id="login-info"> 
-                <p>用户登录</p>
+    <div id="right-content">
+        <div id="login-info"> 
+            <p>用户登录</p>
+        </div>
+        
+        <!-- 登录表格-->
+        <form id="login-form" action="/login" method="post">
+            <div id="email-div">
+                <label for="Email">用户邮箱</label>
+                <input id="Email" type="text" name="Email" placeholder="请正确填写"/> 
+            </div>
+            <div id="password-div">
+                <label for="Password">用户密码</label>
+                <input id="Password" type="password"  name="Password" placeholder="不少于六数"/> 
+            </div>
+                    
+            <div id="controll-div">
+                <div id="submit-div">
+                    <input class="p-button p-button-submit"  type="submit" value="登   录" />    
                 </div>
-            	
-                <form id="login-form" action="/login" method="post">
+                <div id="reg-div">
+                     <input  class="p-button p-button-submit"  type="button" value="注   册" />
+                </div>
                 
-                	<div id="email-div">
-                    	<label for="Email">用户邮箱</label>
-                        <input id="Email" type="text" name="Email"/> 
-                    </div>
-                    
-                    <div id="password-div">
-                    	<label for="Password">用户密码</label>
-                        <input id="Password" type="password"  name="Password" placeholder="不少于六位"/> 
-                    </div>
-                    
-                    <div id="submit-div">
-                    <input class="p-button p-button-submit"  type="submit" value="登录" /> 
-                    
-                    </div>
-                    
-                </form>
-             </div>
-       
-       {% end %}
-    	
-       {% block footer %}
-    	    {% include "layouts/footer.html" %}
-       
-       {% end %}
+            </div>
+       </form>
+   </div>
+{% end %}
+
+{% block footer %}
+    {% include "layouts/footer.html" %}
+{% end %}
     
   
