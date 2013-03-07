@@ -28,16 +28,9 @@ class Model:
         
         self._init_settings()
         
-        try:
-            self.reconnect()
-        
-        except Exception:
-            logging.error("Cannot connect MySQL on %s", self.host, exc_info = True)
-            
-    def new(self, data):
-        self._init_settings()
-        self._data = data
     
+   
+            
     def _init_settings(self):
         
         self.host = Model._db_settings["host"]
@@ -84,7 +77,7 @@ class Model:
     
     def _ensure_connected(self):
         
-        if self._db is None and (time.time() - self._last_use_sec > self.max_idle_sec):
+        if self._db is None or (time.time() - self._last_use_sec > self.max_idle_sec):
             self.reconnect()
         
         self._last_use_sec = time.time()  
@@ -99,7 +92,7 @@ class Model:
     @staticmethod
     def create():
         raise NotImplementedError("create")
-    
+    @staticmethod
     def destory():
         
         raise NotImplementedError("destory")

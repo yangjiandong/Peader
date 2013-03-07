@@ -20,6 +20,11 @@
 	padding-left: 20px;
 }
 
+.valid-error {
+	color: #E35601;
+	margin:5px;
+}
+
 #login-form label{
 	font-size: 20px;
 	display: block;
@@ -51,6 +56,8 @@
 	
 	width:300px;
 	height: 25px;
+	font-weight:bold;
+	color:#333333;
 }
 
 #controll-div 
@@ -74,12 +81,24 @@
 	
 }
 
+
+
+#submit-div input {
+	
+}
+
 #reg-div  {
 	float:right;
 	width:90px;
-	right:0px;
+	
 }
 
+#reg-div a{
+	display:block;
+	height:30px;
+	width: 90px;
+	right:0px;
+}
 
 
 

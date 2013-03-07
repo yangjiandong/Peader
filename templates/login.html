@@ -5,6 +5,13 @@
     <link rel="stylesheet" type="text/css" href="{{static_url("css/base.css")}}" />
     <link rel="stylesheet" type="text/css" href="{{static_url("css/login.css")}}" />
     <link rel="stylesheet" type="text/css" href="{{static_url("css/button-style.css")}}" />
+    <script src="static/js/jquery-1.8.2.min.js"></script>
+    <script src="/static/js/form-vaild.js"></script>
+    <script>
+        FormValider.initailize('#login-form', '#login-submit');
+    </script>
+    
+    
 {% end %}
 
 {% block main_header %}
@@ -23,9 +30,12 @@
         
         <!-- 登录表格-->
         <form id="login-form" action="/login" method="post">
+            
+            
+            
             <div id="email-div">
                 <label for="Email">用户邮箱</label>
-                <input id="Email" type="text" name="Email" placeholder="请正确填写"/> 
+                <input id="Email" type="text" name="Email" placeholder="请正确填写" onchange="FormValider.check_filed('#Email', 'email')"/> 
             </div>
             <div id="password-div">
                 <label for="Password">用户密码</label>
@@ -34,14 +44,15 @@
                     
             <div id="controll-div">
                 <div id="submit-div">
-                    <input class="p-button p-button-submit"  type="submit" value="登   录" />    
+                    <input id="login-submit" class="p-button p-button-submit"  type="submit" value="登   录" />    
                 </div>
                 <div id="reg-div">
-                     <input  class="p-button p-button-submit"  type="button" value="注   册" />
+                     <a class="p-button p-button-submit">注   册</a>
                 </div>
                 
             </div>
        </form>
+       
    </div>
 {% end %}
 

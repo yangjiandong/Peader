@@ -34,7 +34,7 @@ CREATE TABLE `rss_sites` (
 
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-ALTER TABLE `rss_sites` ADD KEY (`url_crc32`, `url`);
+ALTER TABLE `rss_sites` ADD KEY (`url_crc32`);
 
 DROP TABLE IF EXISTS `rss_site_entries`;
 CREATE TABLE `rss_site_entries` (
@@ -54,12 +54,12 @@ CREATE TABLE `rss_site_entries` (
 	
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-ALTER TABLe `rss_site_entries` ADD UNIQUE KEY(`link`); 
+ALTER TABLE `rss_site_entries` ADD UNIQUE KEY(`link`); 
 
 
 
-DROP TABLE IF EXISTS `rss_user_sites`;
-CREATE TABLE `rss_user_sites` (
+DROP TABLE IF EXISTS `rss_user_feeds`;
+CREATE TABLE `rss_user_feeds` (
 
 	`user_id` MEDIUMINT(8) unsigned NOT NULL,
 	`site_url`  VARCHAR(255) NOT NULL,
@@ -73,6 +73,8 @@ CREATE TABLE `rss_user_sites` (
 	FOREIGN KEY (`site_url`) REFERENCES `rss_sites` (`url`)
 
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+ALTER TABLE `rss_user_feeds` ADD UNIQUE KEY(`user_id`, `site_url`);
 
 DROP TABLE IF EXISTS `rss_user_entries`;
 CREATE TABLE `rss_user_entries` (

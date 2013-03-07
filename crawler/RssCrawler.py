@@ -2,46 +2,58 @@
 
 import feedparser
 import hashlib
-
+from models.entry import Entry
 
 class RssCrawler:
     
-    
-    def __init__(self, url):
-        """ 有些网站RSS聚集有重复的链接，但内容却不一样的
-        """
+    def __init__(self, rss_site):
         self.entries = []
-        
-        feed = feedparser.parse(url)
-        entries = feed.entries
-        for entry in entries:
-            self.add_entry(RssEntry(entry))
+        self.site_url = rss_site['url']
+        feed = feedparser.parse(self.site_url)
+        feed_md5 = hashlib.md5(str(feed)).hexdigest()
+        if rss_site['content_md5'] !=  hashlib.md5(str(feed)).hexdigest():
+            entries = feed.entries
+            for entry in entries:
+                self.add_entry(RssEntry(entry))
+            rss_site.update_md5(feed_md5)
+    
+#    def __init__(self, feed):
+#        """ 有些网站RSS聚集有重复的链接，但内容却不一样的
+#        """
+#        self.entries = []
+#        entries = feed.entries
+#        for entry in entries:
+#            self.add_entry(RssEntry(entry))
         
     
     def add_entry(self, rss_entry):
        
         self.entries.append(rss_entry)
+        
     
     def run(self):
-        self.updatd_site_entry()
+        self.update_site_entry()
+       
         
-    def updatd_site_entry(self):
+    def update_site_entry(self):
         for rss_entry in self.entries:
         
             entry = Entry.find_by_link(rss_entry.link)
-            if entry.is_empty():
+            if entry.empty:
             
-                Entry.create(rss_entry, site_url )
+                Entry.create(rss_entry, self.site_url)
             
             elif entry.entry_md5 != rss_entry.entry_md5:
 #               print "rss_link : %s" %(rss_entry.link)
 #               print "link : %s" %(entry['link'])
 #               print "entry_md5     : %s"  %(entry.entry_md5())
 #               print "rss_entry_md5 : %s"  %(rss_entry.entry_md5())
-#            entry['description'] = rss_entry.description
-#            entry['title'] = rss_entry.title
-#            print "After entry_md5 : %s"  %(entry.entry_md5())
+                entry['description'] = rss_entry.description
+                entry['title'] = rss_entry.title
+#               print "After entry_md5 : %s"  %(entry.entry_md5())
                 entry.save()
+                
+        
 
 class RssEntry:
     
@@ -97,5 +109,8 @@ description :
   "%s", 
         md5 : "%s"
 }\n""" %(self.title, self.link, self.author, self.description, self.entry_md5)
+
+
+
 
     
