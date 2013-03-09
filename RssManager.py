@@ -71,13 +71,6 @@ class RssManagerPool():
             if scrawler:
                 scrawler.run()
         
-
-
-
-
-    
-    
-
 if __name__ == "__main__":
     
     db_settings = dict(

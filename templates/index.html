@@ -7,62 +7,32 @@
     <link rel="stylesheet" type="text/css" href="static/css/main.css" />
     <link rel="stylesheet" type="text/css" href="static/css/button-style.css" />
     <script src="static/js/jquery-1.8.2.min.js"></script>
+    <script src="static/js/peader.js"></script>
     <script> 
-    
-        
-
-        var sub_scetion_overflow_action = function (){
-            
-            var $sub_section = $('#sub-section');
-                            
-            $sub_section.mouseenter(function() {
-               
-                 console.log($sub_section.height());
-                 if($sub_section.height() < 210){
-                         $sub_section.css('overflow-y','hidden');
-                 } else {
-                          $sub_section.css('overflow-y','scroll');
-                 }
-            }).mouseleave(function(){
-                    $sub_section.css('overflow-y','hidden');
-           });
-                 
-            
-        };
-        
+        if(document.addEventListener) {
+                window.addEventListener("resize", _resize, false); //FF
+            } else if(document.attachEvent) {
+                     window.attachEvent("onresize", _resize); //IE
+          }
+       
         $(document).ready(function(){
-            $( '#group-tree > li > ul' )
-            .hide()
-            .click(function( e ){
-                    e.stopPropagation();
-             });
-                   
-            $('#group-tree > li').toggle(function(){
-                            $(this).find('ul').slideDown();
-                            $(this).find('.sub-group-icon')
-                            .css('background-image', 'url("static/images/folder-active.png")');
-                            
-                    }, function(){
-                    $( this ).find('ul').slideUp();
-                    $(this).find('.sub-group-icon')
-                            .css('background-image', 'url("static/images/folder-gray.png")');
-            });
-            
-          
+           load_group_menu();
+           load_entry_controll ();
            sub_scetion_overflow_action();
+           
+           $('#test').click(function(){
+                $('<div class="entry"><div class="entry-head"></div><div class="entry-body" style="display: none;"><div class="entry-content"></div><div class="entry-conttollers"><span class="love-icon"> </span><span> </span></div></div></div>').appendTo('#viewer-body');
+           });
+           
+            _resize();
         
-        });
-        
+      });
     </script>
-    
 {% end %}
-
-
 {% block main_header %}
     <div id="main-logo">
                 <img id="logo"  src="static/images/main-logo.png"/> 
     </div>
-    
     <div id="user-info">
        <ul>
            <li>
@@ -77,148 +47,93 @@
            </li> 
        </ul>
     </div>
-    
 {% end %}
-
 {% block content %}
-    
     <div id="content-nav">
         <div id="add-subscription">
             <span class="p-button p-button-submit">订   阅</span>
+            <div id="feed-form-div">
+                <form id="feed-form"><input id="FeedUrl" type="url" style=""/>
+                    <input id="feed-submit" type="submit" value="增加" />
+                </form>
+                
+            </div>
         </div>
         
         <div id="home-section"><a>主页</a></div>
         <div class="section-footer"></div>
         <div id="sub-section">
-            
             <div class="sub-title"><span>订阅</span></div>
-            
             <div>
             <ul id="group-tree">
-                
-                <li class="sub-group">
-                    <div class="group-tab">
-                        <div class="sub-group-icon"></div>
-                        <div class="group-name">科技</div>
-                        <!-- <div class="entry-count">(20)</div> -->
-                    </div>
-                    <ul class="item">
-                        <li>
-                            <a href="http://www.baidu.com/">
-                                <!-- style="background-image: url(/favicons?site=)" -->
-                                <div class="item-icon"></div>
-                                <div class="item-name">果壳</div>
-                                <div class="entry-count">(615)</div>
-                            </a>
-                        </li>
-                        
-                        <li>
-                            <a href="">
-                                <!-- style="background-image: url(/favicons?site=)" -->
-                                <div class="item-icon"></div>
-                                <div class="item-name">酷狗</div>
-                                <div class="entry-count">(15)</div>
-                            </a>
-                        </li>
-                        
-                    </ul>
-                    
-                </li>
-                
-                 <li class="sub-group">
-                    <div class="group-tab">
-                        <div class="sub-group-icon"></div>
-                        <div class="group-name">科技</div>
-                        <!-- <div class="entry-count">(20)</div> -->
-                    </div>
-                    <ul class="item">
-                        <li>
-                            <a href="http://www.baidu.com/">
-                                <!-- style="background-image: url(/favicons?site=)" -->
-                                <div class="item-icon"></div>
-                                <div class="item-name">果壳</div>
-                                <div class="entry-count">(615)</div>
-                            </a>
-                        </li>
-                        
-                        <li>
-                            <a href="">
-                                <!-- style="background-image: url(/favicons?site=)" -->
-                                <div class="item-icon"></div>
-                                <div class="item-name">酷狗</div>
-                                <div class="entry-count">(15)</div>
-                            </a>
-                        </li>
-                        
-                    </ul>
-                </li>
-            
-               
-                 <li class="sub-group">
-                    <div class="group-tab">
-                        <div class="sub-group-icon"></div>
-                        <div class="group-name">科技</div>
-                        <!-- <div class="entry-count">(20)</div> -->
-                    </div>
-                    <ul class="item">
-                        <li>
-                            <a href="http://www.baidu.com/">
-                                <!-- style="background-image: url(/favicons?site=)" -->
-                                <div class="item-icon"></div>
-                                <div class="item-name">果壳</div>
-                                <div class="entry-count">(615)</div>
-                            </a>
-                        </li>
-                        
-                        <li>
-                            <a href="">
-                                <!-- style="background-image: url(/favicons?site=)" -->
-                                <div class="item-icon"></div>
-                                <div class="item-name">酷狗</div>
-                                <div class="entry-count">(15)</div>
-                            </a>
-                        </li>
-                        
-                    </ul>
-                </li>
-                
             </ul>
             </div>
         </div>
-        
     </div>
-    
    <div id="content-viewer">
-       
        <div id="viewer-controllers">
-            <a href="http://wwww.google.com">订阅网站>></a>
+            <div id="item-count">
+                <p>订阅网站 </p>
+            </div>
+            <div id="viewer-buttons">
+                <div role="button" id="item-down-button">向下</div>
+            </div>
        </div>
-       
        <div id="viewer-header">
             <a href="http://wwww.google.com">ლ 订阅网站 </a>
        </div>
        
        
        <div id="viewer-body">
+           
            <div class="entry">
                <div class="entry-head">
-                  
-                   
                </div>
                <div class="entry-body">
-                   
-                   
+                    <div class="entry-content">
+                        <p>3</p>
+                    </div>
+                     <div class="entry-conttollers">
+                        <span class="love-icon"> </span>
+                    <span> </span>
+                    
+                    </div>
                </div>
-               
-               <div class="entry-conttollers">
-                   <span class="love-icon"> </span>
-                   <span> </span>
+           </div>
+           <div class="entry">
+               <div class="entry-head">
+                   <p>你哈</p>
+               </div>
+               <div class="entry-body">
+                    <div class="entry-content">
+                        <p>3</p>
+                    </div>
+                     <div class="entry-conttollers">
+                        <span class="love-icon"> </span>
+                    <span> </span>
+                    
+                    </div>
+               </div>
+           </div>
+           <div class="entry">
+               <div class="entry-head">
+               </div>
+               <div class="entry-body">
+                    <div class="entry-content">
+                        <p>3</p>
+                    </div>
+                     <div class="entry-conttollers">
+                        <span class="love-icon"> </span>
+                    <span> </span>
+                    
+                    </div>
                </div>
            </div>
        
        </div>
        
    </div>
+   
 {% end %}
 
 

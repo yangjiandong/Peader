@@ -27,8 +27,6 @@ class Model:
     def __init__(self):
         
         self._init_settings()
-        
-    
    
             
     def _init_settings(self):
@@ -40,6 +38,22 @@ class Model:
         self._last_use_sec = time.time()
         
     
+    def query(self, query, *parameters):
+        cursor = self.cursor()
+        try:
+            
+            cursor.execute(query, parameters)
+            columns = cursor.fetchall()
+            return columns
+        
+        except MySQLdb.Error, e:
+            logging.error("Error MySQL on %s", e.args[1])
+            self.close()
+        finally:
+            cursor.close()
+            
+   
+              
     def __getitem__(self, key):
         return self._data[key]
     
@@ -96,7 +110,7 @@ class Model:
     def destory():
         
         raise NotImplementedError("destory")
-    
-    
+
+
 
         

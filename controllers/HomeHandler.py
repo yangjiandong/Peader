@@ -3,6 +3,7 @@
 import urllib, hashlib
 import tornado.web
 from models.user import User
+from models.user_feed import UserFeed
 from BaseHandler import BaseHandler
 
 def make_gravatar_url(email):
@@ -20,20 +21,32 @@ class HomeHandler(BaseHandler):
         user = self.get_current_user()
         if user == None:
             self.redirect("/login")
-            
+        
+       
         self.render("index.html", user = user, gravatar_for = make_gravatar_url)
 
         
        
-            
-   
-        
     
-    def post(self):
+    def update_user_entry(self, user_id):
+        user_feed = UserFeed()
+        feeds =  user_feed.get_all_by_user(user_id)
         
-        email = self.get_argument("Email", default = None)
-        password = self.get_argument("Password", default = None)
+        for feed in feeds:
+           entries = Entry.get_new_entries(feed['site_url'], feed['updated_at'])
+           user_entries = []
+           for entry in entries:
+               user_entries.append((entry['id'], user_id))
+               UserEntry.insert_entries(user_entries)
+               pprint.pprint(entry)
         
-        user = User.find_by_email_and_password(email, password)
         
-        self.write("Email: " + user["email"])
+        
+        
+        
+        
+        
+        
+        
+        
+        

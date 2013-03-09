@@ -14,16 +14,17 @@ class BaseHandler(tornado.web.RequestHandler):
         
 
     def get_error_html(self, status_code, **kwargs):
-        if status_code == 404:
-            self.write(self.render_string("404.html"))
-        else:
-            return tornado.web.RequestHandler.get_error_html(self, status_code,
-                                                             **kwargs)
-    
+        self.write(self.render_string("404.html"))
+#        if status_code == 404:
+#            self.write(self.render_string("404.html"))
+#        else:
+#            return tornado.web.RequestHandler.get_error_html(self, status_code,
+#                                                             **kwargs)
+#    
     
     
     def get_current_user(self):
-        #self.setJsonType()
+
         email = self.get_secure_cookie("member_auth")
         if not email: return None
         
@@ -36,5 +37,5 @@ class BaseHandler(tornado.web.RequestHandler):
     def _on_auth(self):
         pass
     
-    def setJsonType(self):
+    def set_json_type(self):
         self.set_header("Content-Type", "application/json")

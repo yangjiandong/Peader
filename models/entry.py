@@ -32,7 +32,15 @@ class Entry(Model):
         
         return True
     
+    @staticmethod
+    def get_new_entries(site_url, created_at):
+        
+        entry = Entry()
+        
+        entries = entry.query("SELECT * FROM `rss_site_entries` WHERE `site_url` = %s AND `created_at` > %s", site_url, created_at)
     
+            
+        return entries
     
     def _get_entry_md5(self):
         
@@ -90,7 +98,5 @@ class Entry(Model):
         return entry._create(rss_entry, site_url)
         
         
-        
-    
         
         

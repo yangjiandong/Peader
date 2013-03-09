@@ -34,6 +34,74 @@ class User(Model):
         user._data = None
         return user
     
+    def update_feed_update_at(self, site_url):
+        cursor =  self.cursor()
+        try:
+            cursor.execute("UPDATE `rss_user_feeds`\
+                        SET `updated_at`=NOW()\
+                        WHERE `user_id`=%s AND `site_url`=%s", 
+                                (self['id'], site_url))
+            self.commit()
+        except MySQLdb.Error, e:
+            self.rollback()
+            logging.error("update user feed   Failed error : %s", e.args[1])
+        finally:
+            cursor.close()
+                
+            
+            
+        
+    def get_group_feeds(self, site_group):
+        cursor =  self.cursor()
+        
+        try:
+            if site_group :
+                cursor.execute("SELECT `site_url`, `name`\
+                                FROM `rss_user_feeds` \
+                                WHERE `user_id` = %s AND `site_group` = %s\
+                                GROUP BY `site_url`", 
+                                (self['id'], site_group))
+            else:
+                cursor.execute("SELECT `site_url`, `name`\
+                                FROM `rss_user_feeds`\
+                                WHERE `user_id` = %s  AND `site_group` IS NULL", 
+                                (self['id']))
+                
+            
+            site_feeds = cursor.fetchall()
+            
+        except MySQLdb.Error, e:
+            logging.error(" query  group feeds Failed error : %s", e.args[1])
+        finally:
+            cursor.close()
+            
+        group = { "site_group" : site_group, "feeds" : site_feeds}
+        return group
+    
+    def get_groups(self):
+        
+        cursor =  self.cursor()
+        
+        try:
+            command = cursor.execute("SELECT `rss_user_feeds`.`site_group`,`rss_user_feeds`.`site_url`, \
+                        `rss_user_feeds`.`name` , COUNT(`rss_user_feeds`.`site_url`) AS `entry_count` \
+                        FROM `rss_user_feeds` INNER JOIN `rss_user_entries` \
+                        ON `rss_user_feeds`.`user_id` = `rss_user_entries`.`user_id` AND `rss_user_feeds`.`site_url` = `rss_user_entries`.`site_url` \
+                        WHERE `rss_user_feeds`.`user_id` = %s  AND `rss_user_entries`.`read` = 0 \
+                        GROUP BY `rss_user_feeds`.`site_url` \
+                        ORDER BY `rss_user_feeds`.`site_group` DESC;", (self['id']))
+            
+            groups = cursor.fetchall()
+        except MySQLdb.Error, e:
+         
+            logging.error("query entry Failed error : %s", e.args[1])
+        
+        finally:
+            cursor.close()
+        
+        return groups
+        
+       
     def _on_auth(self, email):
         cursor = self.cursor()
         try:
@@ -94,11 +162,11 @@ class User(Model):
         
         cursor = self.cursor()
         try:
-            cursor.execute("""INSERT INTO `rss_users` VALUE(NULL, '%s', '%s', '%s', NULL, NULL, 0) """ %(email, encrypted_password , self._salt))
+            cursor.execute("""INSERT INTO `rss_users` VALUE(NULL, %s, %s, %s, NULL, NULL, 0) """, (email, encrypted_password , self._salt))
             self.commit()
         except MySQLdb.Error, e:
             self.rollback()
-            logging.error("Fetch Failed error : %s", e.args[1])
+            logging.error("create user failed error : %s", e.args[1])
             return False
         
         return True

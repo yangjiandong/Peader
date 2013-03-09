@@ -81,15 +81,21 @@ CREATE TABLE `rss_user_entries` (
 
 	`entry_id` BIGINT(20) unsigned NOT NULL,
 	`user_id` MEDIUMINT(8) unsigned NOT NULL,
+	`site_url`  VARCHAR(255) NOT NULL,
 	`read` TINYINT(1)	 UNSIGNED NOT NULL DEFAULT 0,
 	`love`	 TINYINT(1)	 UNSIGNED NOT NULL DEFAULT 0,
 	`tags` VARCHAR(255),
 
 	FOREIGN KEY (`user_id`) REFERENCES `rss_users` (`id`),
+	FOREIGN KEY (`site_url`) REFERENCES `rss_sites` (`url`),
 	FOREIGN KEY (`entry_id`) REFERENCES `rss_site_entries` (`id`)
+	
 
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+CREATE  INDEX  id_url_index ON `rss_user_entries` (`user_id`, `site_url`);
+CREATE  UNIQUE INDEX  user_entry_index ON `rss_user_entries` (`user_id`, `entry_id`);
+ALTER TABLE `rss_user_entries` ADD KEY(`read`);
 
 
 SET @@character_set_client = @saved_cs_clien8;
