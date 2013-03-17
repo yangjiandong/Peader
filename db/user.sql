@@ -17,3 +17,5 @@ insert into rss_db.rss_sites values
 ("http://www.ppurl.com/feed", crc32("http://www.ppurl.com/feed"), "皮皮书屋", "d41d8cd98f00b204e9800998ecf8427e");
 
 delete from `rss_user_sites` ;
+
+

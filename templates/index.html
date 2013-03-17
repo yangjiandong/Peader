@@ -7,6 +7,7 @@
     <link rel="stylesheet" type="text/css" href="static/css/main.css" />
     <link rel="stylesheet" type="text/css" href="static/css/button-style.css" />
     <script src="static/js/jquery-1.8.2.min.js"></script>
+   
     <script src="static/js/peader.js"></script>
     <script> 
         if(document.addEventListener) {
@@ -17,14 +18,12 @@
        
         $(document).ready(function(){
            load_group_menu();
+           toggle_like();
            load_entry_controll ();
            sub_scetion_overflow_action();
+           to_next_page();
            
-           $('#test').click(function(){
-                $('<div class="entry"><div class="entry-head"></div><div class="entry-body" style="display: none;"><div class="entry-content"></div><div class="entry-conttollers"><span class="love-icon"> </span><span> </span></div></div></div>').appendTo('#viewer-body');
-           });
-           
-            _resize();
+           _resize();
         
       });
     </script>
@@ -50,17 +49,14 @@
 {% end %}
 {% block content %}
     <div id="content-nav">
-        <div id="add-subscription">
-            <span class="p-button p-button-submit">订   阅</span>
-            <div id="feed-form-div">
-                <form id="feed-form"><input id="FeedUrl" type="url" style=""/>
-                    <input id="feed-submit" type="submit" value="增加" />
-                </form>
+        <div id="admin-div">
+           <div id="admin-con"><a>管理</a></div>
+            
                 
-            </div>
+         
         </div>
         
-        <div id="home-section"><a>主页</a></div>
+        <div id="home-section"><a>收藏</a></div>
         <div class="section-footer"></div>
         <div id="sub-section">
             <div class="sub-title"><span>订阅</span></div>
@@ -76,60 +72,18 @@
                 <p>订阅网站 </p>
             </div>
             <div id="viewer-buttons">
-                <div role="button" id="item-down-button">向下</div>
+                <div role="button" id="item-prev-button"></div>
+                <div role="button" id="item-next-button"></div>
             </div>
        </div>
-       <div id="viewer-header">
+       <!-- <div id="viewer-header">
             <a href="http://wwww.google.com">ლ 订阅网站 </a>
-       </div>
+       </div> -->
        
        
        <div id="viewer-body">
-           
-           <div class="entry">
-               <div class="entry-head">
-               </div>
-               <div class="entry-body">
-                    <div class="entry-content">
-                        <p>3</p>
-                    </div>
-                     <div class="entry-conttollers">
-                        <span class="love-icon"> </span>
-                    <span> </span>
-                    
-                    </div>
-               </div>
-           </div>
-           <div class="entry">
-               <div class="entry-head">
-                   <p>你哈</p>
-               </div>
-               <div class="entry-body">
-                    <div class="entry-content">
-                        <p>3</p>
-                    </div>
-                     <div class="entry-conttollers">
-                        <span class="love-icon"> </span>
-                    <span> </span>
-                    
-                    </div>
-               </div>
-           </div>
-           <div class="entry">
-               <div class="entry-head">
-               </div>
-               <div class="entry-body">
-                    <div class="entry-content">
-                        <p>3</p>
-                    </div>
-                     <div class="entry-conttollers">
-                        <span class="love-icon"> </span>
-                    <span> </span>
-                    
-                    </div>
-               </div>
-           </div>
-       
+         
+   
        </div>
        
    </div>

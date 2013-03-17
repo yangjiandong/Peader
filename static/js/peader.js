@@ -1,5 +1,10 @@
 //peader main 文件
 
+var Peader = {
+	current_page : 1
+	
+};
+
 function _resize(){
 	var size = get_client_size();
     if (size[0] < 1000)
@@ -9,11 +14,10 @@ function _resize(){
      
      document.getElementById("content-nav").style.height=(size[1]-102)+"px";
      //document.getElementById("content-viewer").style.height=(size[1]-102)+"px";
-     document.getElementById("viewer-body").style.height=(size[1]-200)+"px";
+     document.getElementById("viewer-body").style.height=(size[1]- 153)+"px";
      document.getElementById("content-viewer").style.width=(size[0] - 236)+"px";
 }
-            
-        
+             
 function get_client_size(){
 	if(document.documentElement.clientWidth){
                 return [document.documentElement.clientWidth, document.documentElement.clientHeight];
@@ -28,7 +32,6 @@ function sub_scetion_overflow_action  (){
                             
             $sub_section.mouseenter(function() {
                
-                 console.log($sub_section.height());
                  if($sub_section.height() < 210){
                          $sub_section.css('overflow-y','hidden');
                  } else {
@@ -47,7 +50,8 @@ function load_group_menu(){
 		dataType: 'json',
 		success:function(groups){                      
 			load_groups(groups);
-            load_group_click_envent ()                      
+            load_group_click_envent ();   
+            load_feed_link_click_envent();               
        		}
        });
 }
@@ -69,7 +73,7 @@ function load_groups(groups){
                     groups_div += '</div></div><ul class="item">';
                     site_group = group.site_group;
                 }  
-                groups_div = groups_div  + '<li><a href="/#feed/'+  encodeURIComponent(group.site_url) +'"><div class="item-icon"></div><div class="item-name">' 
+                groups_div = groups_div  + '<li><a href="/#'+  encodeURIComponent(group.site_url) +'"><div class="item-icon"></div><div class="item-name">' 
                             + group.name +'</div><div class="entry-count">(' + group.entry_count + ')</div> </a></li>';
                 if( (i+1 < groups.length) && site_group != groups[i+1].site_group){
                 	groups_div += '</ul>';
@@ -85,7 +89,6 @@ function load_group_click_envent () {
             .click(function( e ){
                     e.stopPropagation();
             });
-                   
             $('#group-tree > li').toggle(
             	function(){
                      $(this).find('ul').slideDown();
@@ -102,27 +105,170 @@ function load_group_click_envent () {
 } 
 
 function load_entry_controll () {
-	$( '.entry > .entry-body' )
-            .click(function( e ){
-                    e.stopPropagation();
-             })
-      .filter(':not(:first)')
-      .hide();
              
     $(".entry").live("click", function (){
+    		
            var self =  $(this).find('.entry-body').is(':visible');
            if(!self){
                $(this).parent()
                	    .find('.entry-body:visible')
                     .slideToggle();
                 }
-                
-                $(this).find('.entry-body')
+                $(this).find('.entry-body ')
                 .stop()
                 .slideToggle();
+                var $entry_abr = $(this).find('.entry-abr');
+                if(!$entry_abr.hasClass('entry-read')){
+                	$entry_abr.addClass('entry-read');
+                	var entry_id = $(this).find('.entry-id').text();
+                	label_entry_read(entry_id);
+                	
+                }
                 
-            });   
+   				$(this).parent().scrollTop($('.entry').index($(this)) * 41);
+                return false;
+      });   
+      
+    
 }
+
+var EntryFormator = {
+	entry_begin : '<div class="entry">',
+	entry_end : '</div>',
+	entry_abr : function  () {
+		console.log("read :" + this.entry.read);
+		var abr_read = "entry-abr";
+		if(this.entry.read == 1){
+			abr_read = "entry-abr entry-read";
+		}
+		var abr_begin = '<div class="' + abr_read + '"><span class="like dislike-icon"></span>';
+		
+		var entry_id_span = '<span class="entry-id">'+ this.entry.entry_id+'</span>';
+		var abr_title = '<div class="entry-title">' + this.entry.title.replace(/<[^>]+?>/g, "") + '</div>';
+		var abr_end = '</div>';
+	  	return abr_begin + entry_id_span  + abr_title + abr_end;
+	},
+	entry_body : function() {
+		var entry_title = '<a href="' + this.entry.link +'" target="_blank" class="entry-link"><h3>' + this.entry.title  + '</h3></a>';
+		var entry_body_begin = '<div class="entry-body"><div class="entry-content">' + entry_title ;
+		
+		var entry_body_end = '</div>';
+		
+		return entry_body_begin   + this.entry.description + entry_body_end;
+	},
+	format : function(entry){
+		this.entry = entry;
+		return this.entry_begin + this.entry_abr() + this.entry_body() + this.entry_end;
+	}
+
+};
+
+function ajax_load_entry_page()  {
+	var site_url = decodeURIComponent(window.location.hash.slice(1));
+	
+	$.ajax({
+		type:"POST",
+		url:"feed",   
+		data: {'site_url' : site_url, 'page' : Peader.current_page},          
+		dataType: 'json',
+		success:function(entries){   
+			for(var i  in entries) {
+				if(i == 0){
+					$('#viewer-body').html(EntryFormator.format(entries[i]));  
+				} else {
+					$('#viewer-body').append(EntryFormator.format(entries[i]));  
+				}
+			}
+			
+			$(".entry a").attr('target', '_blank');
+			$( '.entry > .entry-body' ).hide();
+            // .click(function( e ){
+                    // e.stopPropagation();
+             // })
+      		// .hide();                 
+			          
+       		}
+       });
+	
+}
+
+function get_base_url(url) {
+    
+    var baseURL = url.substring(0, url.indexOf('/', 14));
+
+
+    if (baseURL.indexOf('http://localhost') != -1) {
+        // Base Url for localhost
+        var url = location.href;  // window.location.href;
+        var pathname = location.pathname;  // window.location.pathname;
+        var index1 = url.indexOf(pathname);
+        var index2 = url.indexOf("/", index1 + 1);
+        var baseLocalUrl = url.substr(0, index2);
+
+        return baseLocalUrl + "/";
+    }
+    else {
+        // Root Url for domain name
+        return baseURL + "/";
+    }
+
+}
+function load_feed_link_click_envent() {
+	$('.item > li').click(function () { 
+		//detect hash change
+		Peader.current_page = 1;
+		window.location.hash = $(this).find('a').attr('href').substring(1);
+    	var site_url = decodeURIComponent(window.location.hash.slice(1)); //hash to string (= "myanchor")
+    	$('#item-count').html('<h3>' +  $(this).find('.item-name').text() + '</h3>');
+    	ajax_load_entry_page();
+    	Peader.current_page ++;
+    });
+    	   
+}
+
+function to_next_page () {
+  $("#item-next-button").click(
+  function(){
+  	ajax_load_entry_page();
+  	Peader.current_page++;
+  });
+}
+
+function toggle_like() {
+	
+	$(".like").live("click", 
+  	function(e){
+  		event.stopPropagation();
+  		 if($(this).hasClass('dislike-icon')){
+  		 	$(this).removeClass('dislike-icon');
+            $(this).addClass('like-icon');
+        } else {
+        	$(this).removeClass('like-icon');
+            $(this).addClass('dislike-icon');
+        }
+        
+        return false;
+    });
+}
+
+
+function label_entry_read (entry_id) {
+  $.ajax({
+		type:"GET",
+		url:"entry/read",   
+		data: {'entry_id':entry_id},          
+		dataType: 'text',
+		success:function(msg){   
+			if(msg == "ok"){
+				return ture;
+			}
+		}
+       });
+}
+
+
+
+
       
         
         

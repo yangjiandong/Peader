@@ -47,9 +47,45 @@ class User(Model):
             logging.error("update user feed   Failed error : %s", e.args[1])
         finally:
             cursor.close()
-                
-            
-            
+    
+    def label_read(self, entry_id, read = 1): 
+        
+        cursor =  self.cursor()
+        try:
+            cursor.execute("UPDATE `rss_user_entries` \
+                        SET `read`=%s \
+                        WHERE `user_id`=%s AND `entry_id`=%s", 
+                                (read, self['id'], entry_id))
+            self.commit()
+        except MySQLdb.Error, e:
+            self.rollback()
+            logging.error("update rss_user_entries  Failed error : %s", e.args[1])
+        finally:
+            cursor.close()
+    def label_love(self, entry_id, love): 
+        
+        cursor =  self.cursor()
+        try:
+            cursor.execute("UPDATE `rss_user_entries` \
+                        SET `love`=%s \
+                        WHERE `user_id`=%s AND `entry_id`=%s", 
+                                (love, self['id'], entry_id))
+            self.commit()
+        except MySQLdb.Error, e:
+            self.rollback()
+            logging.error("update rss_user_entries love  Failed error : %s", e.args[1])
+        finally:
+            cursor.close()
+        
+    def get_page_entries(self, site_url, offset):
+        
+        return self.query("SELECT  `rss_user_entries`.`entry_id`, `title`, `link`, `description`, `created_at` , `read`, `love` \
+                    FROM `rss_user_entries` INNER JOIN `rss_site_entries` \
+                    ON `rss_user_entries`.`entry_id` = `rss_site_entries`.`id` \
+                    WHERE user_id = %s and `rss_user_entries`.`site_url` = %s \
+                    ORDER BY `rss_site_entries`.`created_at` DESC \
+                    LIMIT %s, 20", self['id'],  site_url, offset)
+    
         
     def get_group_feeds(self, site_group):
         cursor =  self.cursor()
@@ -130,7 +166,6 @@ class User(Model):
         
         
                 
-    
        
     def _check_password(self, submitted_password):
         return self._data["encrypted_password"] == self._secure_hash("%s--%s" %(self._data["password_salt"], submitted_password ))

@@ -20,7 +20,6 @@ class UserEntry(Model):
        
         return True
     
-    
     def _insert_entries(self, entries):
         
         cursor = self.cursor()
