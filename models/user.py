@@ -76,13 +76,22 @@ class User(Model):
             logging.error("update rss_user_entries love  Failed error : %s", e.args[1])
         finally:
             cursor.close()
-        
+    
+    def get_love_entries(self, offset): 
+         logging.error("what worng?")
+         return self.query("SELECT  `rss_user_entries`.`entry_id`, `title`, `link`, `description`, `created_at` , `read`, `love` \
+                    FROM `rss_user_entries` INNER JOIN `rss_site_entries` \
+                    ON `rss_user_entries`.`entry_id` = `rss_site_entries`.`id` \
+                    WHERE user_id = 1 AND `rss_user_entries`.`love` = 1 \
+                    ORDER BY `rss_site_entries`.`created_at` DESC \
+                    LIMIT 0, 20")
+         
     def get_page_entries(self, site_url, offset):
         
         return self.query("SELECT  `rss_user_entries`.`entry_id`, `title`, `link`, `description`, `created_at` , `read`, `love` \
                     FROM `rss_user_entries` INNER JOIN `rss_site_entries` \
                     ON `rss_user_entries`.`entry_id` = `rss_site_entries`.`id` \
-                    WHERE user_id = %s and `rss_user_entries`.`site_url` = %s \
+                    WHERE user_id = %s AND `rss_user_entries`.`site_url` = %s \
                     ORDER BY `rss_site_entries`.`created_at` DESC \
                     LIMIT %s, 20", self['id'],  site_url, offset)
     

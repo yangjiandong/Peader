@@ -5,44 +5,40 @@ import tornado.web
 from models.user import User
 from models.user_feed import UserFeed
 from BaseHandler import BaseHandler
-
-import datetime
+from .util import DataTimeEncoder
 import json
-
-class DataTimeEncoder(json.JSONEncoder):
-
-    def default(self, obj):
-        if isinstance(obj, datetime.datetime):
-            return obj.strftime("%Y-%m-%d %H:%M:%S")
-
-        return json.JSONEncoder.default(self, obj)
-
- 
-    
-
-    
-    
-
+import logging
     
 class FeedHandler(BaseHandler):
     
    
     def post(self):
         
-        user = self.get_current_user()
-        if user == None:
+        self.user = self.get_current_user()
+        if self.user == None:
             self.redirect("/login")
         
-        site_url = self.get_argument("site_url", default = None)
+        self.site_url = self.get_argument("site_url", default = None)
         
         page = self.get_argument("page", default = 1)
-        offset = (int(page)-1) * 20
-        entries  =user.get_page_entries(site_url, offset)
+        self.offset = (int(page)-1) * 20
+        entries = []  
+        logging.error( self.site_url)
+        if self.site_url  == "love":
+            entries = self.get_love_entries()
+        else:
+            entries = self.get_feed_entries()
         self.set_json_type()
         self.write(json.dumps(entries, cls = DataTimeEncoder))
-              
+    
+    def get_love_entries(self):
         
-  
+        return self.user.get_love_entries(self.offset)
+        
+    
+    def get_feed_entries(self):
+        return self.user.get_page_entries(self.site_url, self.offset)
+        
             
             
             

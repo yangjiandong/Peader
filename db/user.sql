@@ -18,4 +18,33 @@ insert into rss_db.rss_sites values
 
 delete from `rss_user_sites` ;
 
+SELECT  `rss_user_entries`.`entry_id`, `title`, `link`, `description`, `created_at` , `read`, `love`
+FROM `rss_user_entries` INNER JOIN `rss_site_entries` ON `rss_user_entries`.`entry_id` = `rss_site_entries`.`id`
+WHERE user_id = 1 and `rss_user_entries`.`site_url` = "http://feed.36kr.com/c/33346/f/566026/index.rss"
+ORDER BY `rss_site_entries`.`created_at` DESC
+LIMIT 0, 20;
+
+SELECT  `rss_user_entries`.`entry_id`, `title`, `link`, `description`, `created_at` , `read`, `love`
+FROM `rss_user_entries` INNER JOIN `rss_site_entries` ON `rss_user_entries`.`entry_id` = `rss_site_entries`.`id`
+WHERE user_id = 1 AND `rss_user_entries`.`love` = 1
+ORDER BY `rss_site_entries`.`created_at` DESC
+LIMIT 0, 20;
+
+
+SELECT  `rss_user_entries`.`entry_id`, `title`, `link`, `description`, `created_at` , `read`, `love` 
+                           FROM `rss_user_entries` INNER JOIN `rss_site_entries` ON `rss_user_entries`.`entry_id` = `rss_site_entries`.`id` 
+                           WHERE user_id = 1  AND `rss_user_entries`.`love`= 1 
+                           ORDER BY `rss_site_entries`.`created_at` DESC 
+                           LIMIT 0, 20
+
+
+
+
+
+
+
+
+
+
+
 

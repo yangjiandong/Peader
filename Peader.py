@@ -14,7 +14,8 @@ import tornado.options
 from models import model
 
 import os.path
-from controllers import  LoginHandler,AvatarHandler,RegisterHandler, HomeHandler, FeedHandler, GroupHandler,EntryReadHandler
+from controllers import  LoginHandler,AvatarHandler,RegisterHandler, HomeHandler, FeedHandler, GroupHandler,EntryReadHandler,\
+EntryLoveHandler
 
 from config.settings import *
 
@@ -37,6 +38,8 @@ class RssWebReaderApp(tornado.web.Application):
                     (r'/feed', FeedHandler.FeedHandler),
                     (r'/group', GroupHandler.GroupHandler), 
                     (r'/entry/read', EntryReadHandler.EntryReadHandler), 
+                    (r'/entry/love',EntryLoveHandler.EntryLoveHandler),
+                   
                     ]
         
         settings = dict(

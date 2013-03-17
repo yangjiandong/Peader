@@ -107,14 +107,14 @@ function load_group_click_envent () {
 function load_entry_controll () {
              
     $(".entry").live("click", function (){
-    		
+    	
            var self =  $(this).find('.entry-body').is(':visible');
            if(!self){
                $(this).parent()
                	    .find('.entry-body:visible')
                     .slideToggle();
                 }
-                $(this).find('.entry-body ')
+                $(this).find('.entry-body')
                 .stop()
                 .slideToggle();
                 var $entry_abr = $(this).find('.entry-abr');
@@ -122,7 +122,6 @@ function load_entry_controll () {
                 	$entry_abr.addClass('entry-read');
                 	var entry_id = $(this).find('.entry-id').text();
                 	label_entry_read(entry_id);
-                	
                 }
                 
    				$(this).parent().scrollTop($('.entry').index($(this)) * 41);
@@ -136,12 +135,15 @@ var EntryFormator = {
 	entry_begin : '<div class="entry">',
 	entry_end : '</div>',
 	entry_abr : function  () {
-		console.log("read :" + this.entry.read);
 		var abr_read = "entry-abr";
+		var abr_love = "like dislike-icon";
 		if(this.entry.read == 1){
 			abr_read = "entry-abr entry-read";
 		}
-		var abr_begin = '<div class="' + abr_read + '"><span class="like dislike-icon"></span>';
+		if(this.entry.love == 1){
+			abr_love = "like like-icon";
+		}
+		var abr_begin = '<div class="' + abr_read + '"><span class="' + abr_love + '"></span>';
 		
 		var entry_id_span = '<span class="entry-id">'+ this.entry.entry_id+'</span>';
 		var abr_title = '<div class="entry-title">' + this.entry.title.replace(/<[^>]+?>/g, "") + '</div>';
@@ -181,11 +183,11 @@ function ajax_load_entry_page()  {
 			}
 			
 			$(".entry a").attr('target', '_blank');
-			$( '.entry > .entry-body' ).hide();
-            // .click(function( e ){
-                    // e.stopPropagation();
-             // })
-      		// .hide();                 
+			$( '.entry > .entry-body' )
+            .click(function( e ){
+                    e.stopPropagation();
+             })
+      		.hide();                 
 			          
        		}
        });
@@ -222,8 +224,7 @@ function load_feed_link_click_envent() {
     	$('#item-count').html('<h3>' +  $(this).find('.item-name').text() + '</h3>');
     	ajax_load_entry_page();
     	Peader.current_page ++;
-    });
-    	   
+    }); 	   
 }
 
 function to_next_page () {
@@ -238,15 +239,19 @@ function toggle_like() {
 	
 	$(".like").live("click", 
   	function(e){
-  		event.stopPropagation();
+  		 e.stopPropagation();
+  		 var love = 0;
   		 if($(this).hasClass('dislike-icon')){
   		 	$(this).removeClass('dislike-icon');
             $(this).addClass('like-icon');
+            love = 1;
+           
         } else {
         	$(this).removeClass('like-icon');
             $(this).addClass('dislike-icon');
         }
-        
+        var entry_id = $(this).parent().find('.entry-id').text();
+        toggle_entry_love (entry_id, love);
         return false;
     });
 }
@@ -257,6 +262,21 @@ function label_entry_read (entry_id) {
 		type:"GET",
 		url:"entry/read",   
 		data: {'entry_id':entry_id},          
+		dataType: 'text',
+		success:function(msg){   
+			if(msg == "ok"){
+				return ture;
+			}
+		}
+       });
+}
+
+
+function toggle_entry_love (entry_id, love) {
+  $.ajax({
+		type:"GET",
+		url:"entry/love",   
+		data: {'entry_id':entry_id, 'love' : love},          
 		dataType: 'text',
 		success:function(msg){   
 			if(msg == "ok"){
