@@ -82,9 +82,9 @@ class User(Model):
          return self.query("SELECT  `rss_user_entries`.`entry_id`, `title`, `link`, `description`, `created_at` , `read`, `love` \
                     FROM `rss_user_entries` INNER JOIN `rss_site_entries` \
                     ON `rss_user_entries`.`entry_id` = `rss_site_entries`.`id` \
-                    WHERE user_id = 1 AND `rss_user_entries`.`love` = 1 \
+                    WHERE user_id = %s AND `rss_user_entries`.`love` = 1 \
                     ORDER BY `rss_site_entries`.`created_at` DESC \
-                    LIMIT 0, 20")
+                    LIMIT %s, 20", self['id'], offset)
          
     def get_page_entries(self, site_url, offset):
         
@@ -198,8 +198,6 @@ class User(Model):
         
         return self._secure_hash(strftime('%Y-%m-%d %H:%M:%S UTC', gmtime()) + "--" + text)
     
-    
-    
     def _create(self, email, password):
         
         encrypted_password = self._encrypt_password(password)
@@ -214,13 +212,20 @@ class User(Model):
             return False
         
         return True
-        
-       
+    def _insert_init_feeds(self):
+        cursor = self.cursor()
+        try:
+            cursor.executemany("""INSERT INTO `rss_users` VALUE(NULL, %s, %s, %s, NULL, NULL, 0) """, (email, encrypted_password , self._salt))
+            self.commit()
+        except MySQLdb.Error, e:
+            self.rollback()
+            logging.error("insert feeds user failed error : %s", e.args[1])
+            return False
     @staticmethod
     def create(email, password):
         
         user = User()
-        user._create(email, password)
+        return user._create(email, password)
         
         
         

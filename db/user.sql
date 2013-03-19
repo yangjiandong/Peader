@@ -1,4 +1,17 @@
-
+DELIMITER $$
+DROP TRIGGER IF EXISTS `UserCreateADDDefaultFeeds`;
+CREATE TRIGGER `UserCreateADDDefaultFeeds` AFTER INSERT ON `rss_users`
+FOR EACH ROW BEGIN
+INSERT INTO `rss_user_feeds` VALUES 
+(NEW.id, "http://www.xiami.com/collect/feed",  "虾米", "音乐", NULL, NULL),
+(NEW.id, "http://feed.36kr.com/c/33346/f/566026/index.rss",  "果壳", "科技", NULL, NULL),
+(NEW.id, "http://www.alibuybuy.com/feed", "互联网的那点事", "科技",  NULL, NULL),
+(NEW.id, "http://rss.jiaren.org/", "佳人", "其他", NULL, NULL),
+(NEW.id, "http://feed.feedsky.com/yeeyan", "译言", "其他",  NULL, NULL),
+(NEW.id, "http://www.ppurl.com/feed", "皮皮书屋", "其他",  NULL, NULL),
+(NEW.id, "http://www.infzm.com/rss/home/rss2.0.xml",  "南方周末", NULL, NULL, NULL);
+END$$
+DELIMITER ;
 
 INSERT INTO `rss_user_feeds` 
 VALUES(1, "http://www.xiami.com/collect/feed",  "虾米", "音乐", NULL, NULL),

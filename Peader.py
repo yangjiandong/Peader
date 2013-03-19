@@ -16,7 +16,6 @@ from models import model
 import os.path
 from controllers import  LoginHandler,AvatarHandler,RegisterHandler, HomeHandler, FeedHandler, GroupHandler,EntryReadHandler,\
 EntryLoveHandler
-
 from config.settings import *
 
 

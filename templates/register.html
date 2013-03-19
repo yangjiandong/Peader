@@ -1,71 +1,66 @@
-<!DOCTYPE html>
+{% extends  "layouts/base.html" %}
 
-<html>
+{% block header %}
+    <title>注册</title>
+    <link rel="stylesheet" type="text/css" href="{{static_url("css/base.css")}}" />
+    <link rel="stylesheet" type="text/css" href="{{static_url("css/form.css")}}" />
+    <link rel="stylesheet" type="text/css" href="{{static_url("css/button-style.css")}}" />
+    <script src="static/js/jquery-1.8.2.min.js"></script>
+    <script src="/static/js/form-vaild.js"></script>
+  
     
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>注册</title>
+    
+{% end %}
 
-<link rel="stylesheet" type="text/css" href="{{static_url("css/login.css")}}" />
-<link rel="stylesheet" type="text/css" href="{{static_url("css/button-style.css")}}" />
-
-</head>
-
-<body>
-    <div id="base">
-        <div id="main-head">
-            <img id="main-logo"  src="{{static_url("images/main-logo.png")}}"/>
+{% block main_header %}
+    <img id="logo"  src="{{static_url("images/main-logo.png")}}"/>
+{% end %}
         
+{% block content %}
+    <div id="left-content">
+        <img id="content-pic" src="{{static_url("images/reg-pic_left.png")}}"/ >
+    </div>
+            
+    <div id="right-content">
+        <div id="info"> 
+            <p>用户注册</p>
         </div>
         
-        <div id="main-content">
-            <div id="left-content">
-                <img id="content-pic" src="{{static_url("images/pic_left.png")}}"/ >
+        <!-- 登录表格-->
+        <form id="reg-form" action="/register" method="post">
+            
+            
+            
+            <div id="email-div">
+                <label for="Email">用户邮箱</label>
+                <input id="Email" type="text" name="Email" placeholder="请正确填写" onchange="FormValider.check_filed('#Email', 'email')"/> 
+            </div>
+            <div id="password-div">
+                <label for="Password">用户密码</label>
+                <input id="Password" type="password"  name="Password" placeholder="不少于六数""/> 
             </div>
             
-            <div id="right-content">
-                <div id="login-info"> 
-                <p>用户注册</p>
+              <div id="verify-password-div">
+                <label for="VerifyPassword">确认密码</label>
+                <input id="VerifyPassword" type="password"  name="VerifyPassword" placeholder="确认密码"/> 
+            </div>
+                    
+            <div id="controll-div">
+                <div id="submit-div">
+                    <input id="login-submit" class="p-button p-button-submit"  type="submit" value="注   册" />    
+                </div>
+                <div id="link-div">
+                     <a  href="/login" class="link-go"><p>登  录</p></a>
                 </div>
                 
-                <form id="login-form" action="/register" method="post">
-                
-                    <div id="email-div">
-                        <label for="Email">用户邮箱</label>
-                        <input id="Email" type="text" name="Email"/> 
-                    </div>
-                    
-                    <div id="password-div">
-                        <label for="Password">用户密码</label>
-                        <input id="Password" type="password"  name="Password" placeholder="不少于六位"/> 
-                    </div>
-                    
-                    <div id="submit-div">
-                    <input class="p-button p-button-submit"  type="submit" value="注册" /> 
-                    
-                    </div>
-                    
-                </form>
-             </div>
-            
-            
-            
-        </div>
-        <div style="clear: left;"> </div>
-        
-        <div id="main-footer">
-            <ul>
-                 <li>&copy; 2012 RSS阅读</li>
-                <li><a target="_blank"  class = "footer_link"  href="#">关于我们</a></li>
-                <li><a target="_blank" class = "footer_link"  href="#">隐私政策</a></li>
-                <li><a target="_blank"  class = "footer_link"  href="#">使用条款</a></li>
-            </ul>
- 
-        
-        </div>
-    
-    </div>
-    
+            </div>
+       </form>
+       
+   </div>
+{% end %}
 
-</body>
-</html>
+{% block footer %}
+    {% include "layouts/footer.html" %}
+{% end %}
+    
+  

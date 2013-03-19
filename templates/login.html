@@ -3,7 +3,7 @@
 {% block header %}
     <title>登录</title>
     <link rel="stylesheet" type="text/css" href="{{static_url("css/base.css")}}" />
-    <link rel="stylesheet" type="text/css" href="{{static_url("css/login.css")}}" />
+    <link rel="stylesheet" type="text/css" href="{{static_url("css/form.css")}}" />
     <link rel="stylesheet" type="text/css" href="{{static_url("css/button-style.css")}}" />
     <script src="static/js/jquery-1.8.2.min.js"></script>
     <script src="/static/js/form-vaild.js"></script>
@@ -24,7 +24,7 @@
     </div>
             
     <div id="right-content">
-        <div id="login-info"> 
+        <div id="info"> 
             <p>用户登录</p>
         </div>
         
@@ -41,13 +41,15 @@
                 <label for="Password">用户密码</label>
                 <input id="Password" type="password"  name="Password" placeholder="不少于六数"/> 
             </div>
+            
+          
                     
             <div id="controll-div">
                 <div id="submit-div">
                     <input id="login-submit" class="p-button p-button-submit"  type="submit" value="登   录" />    
                 </div>
-                <div id="reg-div">
-                     <a class="p-button p-button-submit">注   册</a>
+                 <div id="link-div">
+                     <a  href="/register" class="link-go"><p>注   册</p></a>
                 </div>
                 
             </div>

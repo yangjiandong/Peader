@@ -112,10 +112,10 @@ input[type=sumbit].p-button{
   background-color: #176dfc;
   background-image: -webkit-gradient(linear,left top,left bottom,from(#3e86fd),to(#176dfc));
   background-image: -webkit-linear-gradient(top,#3e86fd,#176dfc);
-  background-image: -moz-linear-gradient(top,#ff6e90,#176dfc);
-  background-image: -ms-linear-gradient(top,#ff6e90,#176dfc);
-  background-image: -o-linear-gradient(top,#ff6e90,#176dfc);
-  background-image: linear-gradient(top,#ff6e90,#176dfc);
+  background-image: -moz-linear-gradient(top,#3e86fd,#176dfc);
+  background-image: -ms-linear-gradient(top,#3e86fd,#176dfc);
+  background-image: -o-linear-gradient(top,#3e86fd,#176dfc);
+  background-image: linear-gradient(top,#3e86fd,#176dfc);
  }
 
 
