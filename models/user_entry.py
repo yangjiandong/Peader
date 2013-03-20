@@ -30,7 +30,8 @@ class UserEntry(Model):
             self.rollback()
             logging.error("insert new user entries error : %s", e.args[1])
             return False
-        
+        finally:
+            cursor.close()
         return True
         
        

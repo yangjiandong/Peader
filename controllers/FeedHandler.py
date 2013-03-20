@@ -23,7 +23,7 @@ class FeedHandler(BaseHandler):
         page = self.get_argument("page", default = 1)
         self.offset = (int(page)-1) * 20
         entries = []  
-        logging.error( self.site_url)
+        
         if self.site_url  == "love":
             entries = self.get_love_entries()
         else:

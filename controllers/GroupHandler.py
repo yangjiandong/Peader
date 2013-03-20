@@ -42,9 +42,8 @@ class GroupHandler(BaseHandler):
                UserEntry.insert_entries(user_entries)
            user.update_feed_update_at(feed['site_url'])
            
-        
         groups = user.get_groups()
-        callback(groups )
+        callback(groups)
         
   
         

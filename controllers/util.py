@@ -4,6 +4,8 @@ import datetime
 import json
 import tornado.web
 import re
+import hashlib
+import urllib
 import feedparser
 
 class DataTimeEncoder(json.JSONEncoder):
@@ -14,7 +16,13 @@ class DataTimeEncoder(json.JSONEncoder):
 
         return json.JSONEncoder.default(self, obj)
 
-
+def make_gravatar_url(email ,size = 60):
+    #这里需要配置成在主机的默认头像
+    default = "http://farm9.staticflickr.com/8096/8519545439_459f63bf5b_t_d.jpg"
+    
+    gravatar_url = "http://www.gravatar.com/avatar/" + hashlib.md5(email.lower()).hexdigest() + "?"
+    gravatar_url += urllib.urlencode({'d':default, 's':str(size)})
+    return gravatar_url
 
 
     

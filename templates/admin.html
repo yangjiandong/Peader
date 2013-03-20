@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>阅读器管理</title>
+<link rel="stylesheet" type="text/css" href="static/css/button-style.css" />
+<link rel="stylesheet" type="text/css" href="static/css/admin.css" />
+ <script src="static/js/jquery-1.8.2.min.js"></script>
+<script>
+	$(document).ready(function() {
+		$('.content-section').not(':first').hide();
+        $('.nav-link').click(function (){
+			 $('.content-section').hide();
+			 $(this).animate({
+    		 opacity: 0.68
+ 		 	 }, 100, function() {
+	   			var url = this.href;
+				$('.link-active').removeClass('link-active');
+			 	$(this).addClass('link-active');
+			 	$('div.' + url.substring(url.indexOf('#') +1))
+			 	.show();
+  			 });
+			
+			
+			 return false;
+			});
+    });
+</script>
+</head>
+
+<body>
+<div id="base">
+<div id="head">
+    	<div id="cover">
+        	<img id="cover-img" src="static/images/head-cover.png">
+        </div>
+   		<div id="info-itro">
+    		<div id="info-avatar">
+            <a href="#"><img id="info-photo" src="{{ gravatar_for(user['email'], 114)}}"></a>
+            </div>
+            <div id="info-detail">
+            	<div id="info-email"><h1>{{user['email']}}</h1></div>
+                <div id="info-d">
+                	<div id="info-intro"> <span>欢迎进入管理界面</span></div>
+                    
+                </div>
+            </div>
+        </div>
+</div>
+    
+<div id="nav-div">
+<div id="nav-menu">
+        
+    	<a href="#sub" class="nav-link link-active" >
+        	<div class="link-description">订阅管理</div>
+        </a>
+        
+        <a href="#edit-grp" class="nav-link" >
+        	<div class="link-description">修改分组</div>
+        </a>
+        
+        <a href="#del-grp" class="nav-link" >
+        	<div class="link-description">移除分组</div>
+        </a>
+        <a href="#user-admin" class="nav-link" >
+            <div class="link-description">修改密码</div>
+        </a>
+       <a href="#about" class="nav-link" >
+            <div class="link-description">关于我们</div>
+        </a>
+        
+       
+    	<div class="clear"></div>
+</div>  
+</div>
+<!--content -->
+<div id="content">
+<div id="content-center">
+<!--
+    	<div id="content-left">
+        	<div id="intro-div" class="section-div">
+            
+            </div>
+        
+        </div>
+        <div id="content-right"></div>
+       
+        <div id="content-bottom"></div>
+         <div class="clear"></div>
+-->
+	<div class="sub content-section">
+		   
+    
+    <form class =  "form-div" id="addsub_form" method="post" action="/add/subscribe" >
+         <div class= "form-info">
+            <p>增加订阅</p>
+            </div>
+        <div class = "input-div" >
+            <label for="Sub">订阅网站</label>
+            <input id= "Sub" type="url" name="Sub" value="" />
+        </div>
+        
+        
+        <div class = "input-div" >
+            <!-- <input class="r-button r-button-submit" type="submit" value="订阅"  /> -->
+            <a class="p-button p-button-submit" href="javascript:void(0)" onclick="submitform('#addsub_form')" >增加订阅</a>
+        </div>
+    </form>    
+    <form class =  "form-div" id="delsub_form" method="post" action="/del/subscribe" >
+         <div class= "form-info">
+            <p>删除订阅</p>
+            </div>
+        <div class = "input-div" >
+            <label for="Feedid">订阅网站</label>
+            <input id= "Feedid" type="url" name="Feedid" value="" />
+        </div>
+        
+        
+        <div class = "input-div" >
+            <!-- <input class="r-button r-button-submit" type="submit" value="订阅"  /> -->
+            <a class="p-button p-button-submit" href="javascript:void(0)" onclick="submitform('#delsub_form')" >删除订阅</a>
+        </div>
+    </form>    
+</div>
+<div class="edit-grp content-section">
+    <form class =  "form-div" id="change_cate_form" method="post" action="/change/category" >
+         <div class= "form-info">
+            <p>修改分组</p>
+            </div>
+         <div class = "input-div" >
+            
+            <label for="Feedid">订阅编号</label>
+            <input id= "Feedid" type="text" name="Feedid" value="" />
+        </div>
+
+         <div class = "input-div" >
+            
+            <label for="Cate">分组名</label>
+            <input id= "Cate" type="text" name="Cate" value="" />
+        </div>
+        
+        <div class = "input-div" >
+            <!-- <input class="r-button r-button-submit" type="submit" value="订阅"  /> -->
+            <a class="p-button p-button-submit" href="javascript:void(0)" onclick="submitform('#change_cate_form')" >修改分组</a>
+        </div>
+    </form>    
+</div>
+ 
+<div class="del-grp content-section">
+    <form class="form-div" id="del_cate_form" method="post" action="/del/category" >
+         <div class= "form-info">
+            <p>移除分组</p>
+            </div>
+         <div class = "input-div" >
+            
+            <label for="Feedid">订阅编号</label>
+            <input id= "Feedid" type="text" name="Feedid" value="" />
+        </div>
+
+         <div class = "input-div" >
+            
+            <label for="Cate">分组名</label>
+            <input id= "Cate" type="text" name="Cate" value="" />
+        </div>
+        
+        <div class = "input-div" >
+            <!-- <input class="r-button r-button-submit" type="submit" value="订阅"  /> -->
+            <a class="p-button p-button-submit" href="javascript:void(0)" onclick="submitform('#change_cate_form')" >移除分组</a>
+        </div>
+    </form>    
+</div>
+
+
+<div class="user-admin content-section">
+    
+    <form class="form-div" id="edit-pw-form" method="post" action="/account/edit-pw" >
+         <div class= "form-info">
+            <p>修改密码</p>
+            </div>
+        <div  class="input-div">
+            <label for="Oldpasswd" >原密码</label>
+            <input id="Oldpasswd" type="password" value="" name="Oldpasswd" />
+        
+        </div>
+        
+        <div class="input-div">
+            <label for="Passwd" >密码</label>
+            <input id="Passwd" type="password" value="" name="Passwd" />
+        
+        </div>
+        
+        <div class="input-div">
+            <label for="Verifypasswd" >确认密码</label>
+            <input id="Verifypasswd" type="password" value="" name="Verifypasswd" />
+        </div>
+        
+        
+        <div class = "input-div">
+            <!-- <input class="r-button r-button-submit" type="submit" value="订阅"  /> -->
+            <a class="p-button p-button-submit" href="javascript:void(0)" onclick="submitform('#edit-pw-form')" >确认</a>
+        </div>
+    
+    </form>
+    
+ 
+</div>  
+
+<div class="about content-section">
+    
+    
+ 
+</div>  
+
+      
+</div>      
+</div>
+<!-- footer -->
+<div id="footer">
+
+</div>
+
+</div>
+</body>
+</html>

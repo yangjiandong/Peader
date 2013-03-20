@@ -15,7 +15,7 @@ from models import model
 
 import os.path
 from controllers import  LoginHandler,AvatarHandler,RegisterHandler, HomeHandler, FeedHandler, GroupHandler,EntryReadHandler,\
-EntryLoveHandler
+EntryLoveHandler,LogoutHandler,AdminHandler
 from config.settings import *
 
 
@@ -38,6 +38,8 @@ class RssWebReaderApp(tornado.web.Application):
                     (r'/group', GroupHandler.GroupHandler), 
                     (r'/entry/read', EntryReadHandler.EntryReadHandler), 
                     (r'/entry/love',EntryLoveHandler.EntryLoveHandler),
+                    (r'/logout',LogoutHandler.LogoutHandler),
+                    (r'/admin', AdminHandler.AdminHandler),
                    
                     ]
         

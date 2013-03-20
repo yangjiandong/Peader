@@ -6,13 +6,7 @@ from models.user import User
 from models.user_feed import UserFeed
 from BaseHandler import BaseHandler
 
-def make_gravatar_url(email):
-    #这里需要配置成在主机的默认头像
-    default = "http://farm9.staticflickr.com/8096/8519545439_459f63bf5b_t_d.jpg"
-    size = 60
-    gravatar_url = "http://www.gravatar.com/avatar/" + hashlib.md5(email.lower()).hexdigest() + "?"
-    gravatar_url += urllib.urlencode({'d':default, 's':str(size)})
-    return gravatar_url
+from .util import make_gravatar_url
     
 class HomeHandler(BaseHandler):
     
@@ -38,7 +32,7 @@ class HomeHandler(BaseHandler):
            for entry in entries:
                user_entries.append((entry['id'], user_id))
                UserEntry.insert_entries(user_entries)
-               pprint.pprint(entry)
+               
         
         
         

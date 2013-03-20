@@ -30,8 +30,11 @@ class RegisterHandler(BaseHandler.BaseHandler):
         password = self.get_argument("Password", default = None)
         verify_password = self.get_argument("VerifyPassword", default = None)
         successed = False
+        
         if EmailIsValid(self.email) and  password == verify_password and PasswdIsValid(password):
-            successed  = User.create(self.email, password)
+            user = User.find_by_email_and_password(email, password)
+            if user.empty:
+                successed  = User.create(self.email, password)
         callback(successed)
             
         

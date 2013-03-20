@@ -1,16 +1,29 @@
-Peader (Web RSS 阅读器)
+Peader (Web RSS Reader)
 ======
 A web rss reader based by Python Tornado
 
-你需要什么才能使用Peader？
+What's required?
 ===========
 
-* 1.python2.7+ （2.6的没有测试过）
-* 2.feedpaser包
+* 1.python2.7+ 
+* 2.feedparser
 * 3.MySQLdb
-* 4.最后你需要掌握web常有知识
+* 4. HTML/CSS/JS
 
-问题帮助
+Help
 =================
-如果有bug请邮箱联系：
-     Email ： lyanghwy@gmail.com
+
+Test Data
+================
+
+In db/script directory, where is a file named test.sql
+the base data for test
+
+The Test User
+================
+
+user email : 123456@email.com
+password   : 123456
+
+About
+=================
