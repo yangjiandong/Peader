@@ -15,7 +15,6 @@ import logging
 
 
 class GroupHandler(BaseHandler):
-
     @tornado.web.asynchronous
     @tornado.gen.engine
     def get(self):
@@ -24,7 +23,7 @@ class GroupHandler(BaseHandler):
         if user == None:
             self.redirect("/login")
 
-        groups  = yield tornado.gen.Task(self.update_user_entry, user)
+        groups = yield tornado.gen.Task(self.update_user_entry, user)
         self.set_json_type()
         logging.info(json_encode(groups))
 
@@ -37,18 +36,18 @@ class GroupHandler(BaseHandler):
         logging.info(user)
 
         user_feed = UserFeed()
-        feeds =  user_feed.get_all_by_user(user['id'])
+        feeds = user_feed.get_all_by_user(user['id'])
 
         for feed in feeds:
-           logging.info(feed)
+            logging.info(feed)
 
-           entries = Entry.get_new_entries(feed['site_url'], feed['updated_at'])
-           user_entries = []
-           for entry in entries:
-               user_entries.append((entry['id'], user['id'],entry['site_url'] ))
-           if len(user_entries) > 0:
-               UserEntry.insert_entries(user_entries)
-           user.update_feed_update_at(feed['site_url'])
+            entries = Entry.get_new_entries(feed['site_url'], feed['updated_at'])
+            user_entries = []
+            for entry in entries:
+                user_entries.append((entry['id'], user['id'], entry['site_url'] ))
+            if len(user_entries) > 0:
+                UserEntry.insert_entries(user_entries)
+            user.update_feed_update_at(feed['site_url'])
 
         groups = user.get_groups()
         callback(groups)

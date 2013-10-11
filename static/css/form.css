@@ -2,142 +2,135 @@
 /* 登录页面样式*/
 
 #main-logo {
-	
-	width:180px;
-	height:60px;
+
+    width: 180px;
+    height: 60px;
 }
 
-#main-content{
-	
-	width: 900px;
-	height: 550px;
-	margin: 20px auto;
-	
-	}
+#main-content {
 
+    width: 900px;
+    height: 550px;
+    margin: 20px auto;
 
-#login-form,#reg-form{
-	
-	padding-left: 20px;
+}
+
+#login-form, #reg-form {
+
+    padding-left: 20px;
 }
 
 .valid-error {
-	color: #E35601;
-	margin:5px;
+    color: #E35601;
+    margin: 5px;
 }
 
-#login-form label,#reg-form label{
-	font-size: 20px;
-	display: block;
-	padding: 5px 5px 5px 0px;
-	margin: 5px 5px 5px 0px;
-	color:#d379e3;
-	font-weight:bold;
+#login-form label, #reg-form label {
+    font-size: 20px;
+    display: block;
+    padding: 5px 5px 5px 0px;
+    margin: 5px 5px 5px 0px;
+    color: #d379e3;
+    font-weight: bold;
 }
 
-#info{
-	margin:10px;
+#info {
+    margin: 10px;
 }
 
-#info p{
-	
-	font-size:30px;
-	color:#6aaefb;
+#info p {
+
+    font-size: 30px;
+    color: #6aaefb;
 }
 
-.input-div,#email-div ,#password-div,#verify-password-div {
-	
-	margin-left:10px;
-	width: 340px;
-	height:90px;
-	
+.input-div, #email-div, #password-div, #verify-password-div {
+
+    margin-left: 10px;
+    width: 340px;
+    height: 90px;
+
 }
 
 #Email, #Password, #VerifyPassword {
-	
-	width:300px;
-	height: 25px;
-	font-weight:bold;
-	color:#333333;
+
+    width: 300px;
+    height: 25px;
+    font-weight: bold;
+    color: #333333;
 }
 
-#controll-div 
-{
-	width:280px;
-	padding: 5px;
-	margin: 5px 25px;
+#controll-div {
+    width: 280px;
+    padding: 5px;
+    margin: 5px 25px;
 
-	height: 40px;
+    height: 40px;
 }
 
-#controll-div input
-{
-	width: 90px;
-	
+#controll-div input {
+    width: 90px;
+
 }
 
 #submit-div {
-	float:left;
-	width: 90px;
-	
+    float: left;
+    width: 90px;
+
 }
-
-
 
 #submit-div input {
-	
+
 }
 
-#link-div, #reg-div  {
-	float:right;
-	width:90px;
-	
+#link-div, #reg-div {
+    float: right;
+    width: 90px;
+
 }
 
-#link-div a{
-	display:block;
-	height:30px;
-	width: 90px;
-	right:0px;
+#link-div a {
+    display: block;
+    height: 30px;
+    width: 90px;
+    right: 0px;
 }
-
 
 .link-go {
-	text-align:center;
-	text-decoration:none;
-	display:block;
-	height:30px;
-	width: 90px;
-	right:0px;
-	line-height:30px;
-	font-size:14px;
-	font-weight:bold;
-	border-radius:2px;
-	border: 1px solid #3681fc;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    height: 30px;
+    width: 90px;
+    right: 0px;
+    line-height: 30px;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 2px;
+    border: 1px solid #3681fc;
     color: #e50c72;
-    text-shadow: 0 1px rgba(0,0,0,0.1);
-	background-color: #3e86fd;
-    background-image: -webkit-gradient(linear,left top,left bottom,from(#3e86fd),to(#3e86fd));
-    background-image: -webkit-linear-gradient(top,#3e86fd,#3e86fd);
-    background-image: -moz-linear-gradient(top,#3e86fd,#3e86fd);
-    background-image: -ms-linear-gradient(top,#3e86fd,#3e86fd);
-    background-image: -o-linear-gradient(top,#3e86fd,#3e86fd);
-    background-image: linear-gradient(top,#3e86fd,#3e86fd);
+    text-shadow: 0 1px rgba(0, 0, 0, 0.1);
+    background-color: #3e86fd;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#3e86fd), to(#3e86fd));
+    background-image: -webkit-linear-gradient(top, #3e86fd, #3e86fd);
+    background-image: -moz-linear-gradient(top, #3e86fd, #3e86fd);
+    background-image: -ms-linear-gradient(top, #3e86fd, #3e86fd);
+    background-image: -o-linear-gradient(top, #3e86fd, #3e86fd);
+    background-image: linear-gradient(top, #3e86fd, #3e86fd);
 }
 
-
- .link-go:hover {
-  border: 1px solid #3681fc;
-  color: #fff;
-  text-shadow: 0 1px rgba(0,0,0,0.3);
-  background-color: #176dfc;
-  background-image: -webkit-gradient(linear,left top,left bottom,from(#3e86fd),to(#176dfc));
-  background-image: -webkit-linear-gradient(top,#3e86fd,#176dfc);
-  background-image: -moz-linear-gradient(top,#3e86fd,#176dfc);
-  background-image: -ms-linear-gradient(top,#3e86fd,#176dfc);
-  background-image: -o-linear-gradient(top,#3e86fd,#176dfc);
-  background-image: linear-gradient(top,#3e86fd,#176dfc);
- }
+.link-go:hover {
+    border: 1px solid #3681fc;
+    color: #fff;
+    text-shadow: 0 1px rgba(0, 0, 0, 0.3);
+    background-color: #176dfc;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#3e86fd), to(#176dfc));
+    background-image: -webkit-linear-gradient(top, #3e86fd, #176dfc);
+    background-image: -moz-linear-gradient(top, #3e86fd, #176dfc);
+    background-image: -ms-linear-gradient(top, #3e86fd, #176dfc);
+    background-image: -o-linear-gradient(top, #3e86fd, #176dfc);
+    background-image: linear-gradient(top, #3e86fd, #176dfc);
+}
 
 
 

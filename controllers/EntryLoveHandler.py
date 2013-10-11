@@ -9,10 +9,9 @@ from models.user_entry import UserEntry
 from models.model import Model
 from BaseHandler import BaseHandler
 from tornado.escape import json_encode
-    
+
+
 class EntryLoveHandler(BaseHandler):
-    
-   
     def get(self):
         user = self.get_current_user()
         if user == None:

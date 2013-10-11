@@ -1,93 +1,96 @@
 {% extends "layouts/base.html" %}
 
 {% block header%}
-    <title>Peader</title>
-    
-    <link rel="stylesheet" type="text/css" href="static/css/base.css"" />
-    <link rel="stylesheet" type="text/css" href="static/css/main.css" />
-    <link rel="stylesheet" type="text/css" href="static/css/button-style.css" />
-    <script src="static/js/jquery-1.8.2.min.js"></script>
-   
-    <script src="static/js/peader.js"></script>
-    <script> 
-        if(document.addEventListener) {
-                window.addEventListener("resize", _resize, false); //FF
-            } else if(document.attachEvent) {
-                     window.attachEvent("onresize", _resize); //IE
-          }
-       
-        $(document).ready(function(){
-           load_group_menu();
-           toggle_like();
-           load_entry_controll ();
-           sub_scetion_overflow_action();
-           to_next_page();
-           
-           _resize();
-        
-      });
-    </script>
+<title>Peader</title>
+
+<link rel="stylesheet" type="text/css" href="static/css/base.css"" />
+<link rel="stylesheet" type="text/css" href="static/css/main.css"/>
+<link rel="stylesheet" type="text/css" href="static/css/button-style.css"/>
+<script src="static/js/jquery-1.8.2.min.js"></script>
+
+<script src="static/js/peader.js"></script>
+<script>
+    if (document.addEventListener) {
+        window.addEventListener("resize", _resize, false); //FF
+    } else if (document.attachEvent) {
+        window.attachEvent("onresize", _resize); //IE
+    }
+
+    $(document).ready(function () {
+        load_group_menu();
+        toggle_like();
+        load_entry_controll();
+        sub_scetion_overflow_action();
+        to_next_page();
+
+        _resize();
+
+    });
+</script>
 {% end %}
 {% block main_header %}
-    <div id="main-logo">
-      <img id="logo"  src="static/images/main-logo.png"/> 
-    </div>
-    <div id="user-info">
-       <ul>
-           
-           <li>
-                <a href="/logout">注销</a>  
-           </li>
-           <li>
-               <a href="/"><img src="{{ gravatar_for(user['email'])}}" />  </a>
-             
-           </li> 
-       </ul>
-    </div>
+<div id="main-logo">
+    <img id="logo" src="static/images/main-logo.png"/>
+</div>
+<div id="user-info">
+    <ul>
+
+        <li>
+            <a href="/logout">注销</a>
+        </li>
+        <li>
+            <a href="/"><img src="{{ gravatar_for(user['email'])}}"/> </a>
+
+        </li>
+    </ul>
+</div>
 {% end %}
 {% block content %}
-    <div id="content-nav">
-        <div id="admin-div">
-           <div id="admin-con"><a>管理</a></div>
-        </div>
-        
-        <div id="home-section">
-            <ul class="item" style="display: block;">
-             <li><a href="/#love"><div class="item-name">收藏</div> </a></li></ul>
-        </div>
-            
-           
-        <div class="section-footer"></div>
-        <div id="sub-section">
-            <div class="sub-title"><span>订阅</span></div>
-            <div>
+<div id="content-nav">
+    <div id="admin-div">
+        <div id="admin-con"><a>管理</a></div>
+    </div>
+
+    <div id="home-section">
+        <ul class="item" style="display: block;">
+            <li><a href="/#love">
+                <div class="item-name">收藏</div>
+            </a></li>
+        </ul>
+    </div>
+
+
+    <div class="section-footer"></div>
+    <div id="sub-section">
+        <div class="sub-title"><span>订阅</span></div>
+        <div>
             <ul id="group-tree">
             </ul>
-            </div>
         </div>
     </div>
-   <div id="content-viewer">
-       <div id="viewer-controllers">
-            <div id="item-count">
-                <p>订阅网站 </p>
-            </div>
-            <div id="viewer-buttons">
-                <div role="button" id="item-prev-button"></div>
-                <div role="button" id="item-next-button"></div>
-            </div>
-       </div>
-       <!-- <div id="viewer-header">
-            <a href="http://wwww.google.com">ლ 订阅网站 </a>
-       </div> -->
-       
-       
-       <div id="viewer-body">
-         
-   
-       </div>
-       
-   </div>
-   
+</div>
+<div id="content-viewer">
+    <div id="viewer-controllers">
+        <div id="item-count">
+            <p>订阅网站 </p>
+        </div>
+        <div id="viewer-buttons">
+            <div role="button" id="item-prev-button"></div>
+            <div role="button" id="item-next-button"></div>
+        </div>
+    </div>
+    <!-- <div id="viewer-header">
+         <a href="http://wwww.google.com">ლ 订阅网站 </a>
+    </div> -->
+
+
+    <div id="viewer-body">
+
+
+    </div>
+
+</div>
+
 {% end %}
 
 

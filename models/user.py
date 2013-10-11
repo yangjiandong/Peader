@@ -6,7 +6,8 @@ import hashlib
 import MySQLdb
 import logging
 
-from time import  strftime, gmtime
+from time import strftime, gmtime
+
 
 class User(Model):
     """用户类，用于登录，注册，认证等
@@ -24,7 +25,7 @@ class User(Model):
         return user
 
     @staticmethod
-    def find_by_email_and_password(email, password ):
+    def find_by_email_and_password(email, password):
         logging.info(email)
         logging.info(password)
 
@@ -32,17 +33,17 @@ class User(Model):
         user._on_auth(email)
         if user._data and user._check_password(password):
             return user
-        #not aut
+            #not aut
         user._data = None
         return user
 
     def update_feed_update_at(self, site_url):
-        cursor =  self.cursor()
+        cursor = self.cursor()
         try:
             cursor.execute("UPDATE `rss_user_feeds`\
                         SET `updated_at`=NOW()\
                         WHERE `user_id`=%s AND `site_url`=%s",
-                                (self['id'], site_url))
+                           (self['id'], site_url))
             self.commit()
         except MySQLdb.Error, e:
             self.rollback()
@@ -50,28 +51,29 @@ class User(Model):
         finally:
             cursor.close()
 
-    def label_read(self, entry_id, read = 1):
+    def label_read(self, entry_id, read=1):
 
-        cursor =  self.cursor()
+        cursor = self.cursor()
         try:
             cursor.execute("UPDATE `rss_user_entries` \
                         SET `read`=%s \
                         WHERE `user_id`=%s AND `entry_id`=%s",
-                                (read, self['id'], entry_id))
+                           (read, self['id'], entry_id))
             self.commit()
         except MySQLdb.Error, e:
             self.rollback()
             logging.error("update rss_user_entries  Failed error : %s", e.args[1])
         finally:
             cursor.close()
+
     def label_love(self, entry_id, love):
 
-        cursor =  self.cursor()
+        cursor = self.cursor()
         try:
             cursor.execute("UPDATE `rss_user_entries` \
                         SET `love`=%s \
                         WHERE `user_id`=%s AND `entry_id`=%s",
-                                (love, self['id'], entry_id))
+                           (love, self['id'], entry_id))
             self.commit()
         except MySQLdb.Error, e:
             self.rollback()
@@ -80,8 +82,8 @@ class User(Model):
             cursor.close()
 
     def get_love_entries(self, offset):
-         logging.error("what worng?")
-         return self.query("SELECT  `rss_user_entries`.`entry_id`, `title`, `link`, `description`, `created_at` , `read`, `love` \
+        logging.error("what worng?")
+        return self.query("SELECT  `rss_user_entries`.`entry_id`, `title`, `link`, `description`, `created_at` , `read`, `love` \
                     FROM `rss_user_entries` INNER JOIN `rss_site_entries` \
                     ON `rss_user_entries`.`entry_id` = `rss_site_entries`.`id` \
                     WHERE user_id = %s AND `rss_user_entries`.`love` = 1 \
@@ -95,25 +97,24 @@ class User(Model):
                     ON `rss_user_entries`.`entry_id` = `rss_site_entries`.`id` \
                     WHERE user_id = %s AND `rss_user_entries`.`site_url` = %s \
                     ORDER BY `rss_site_entries`.`created_at` DESC \
-                    LIMIT %s, 20", self['id'],  site_url, offset)
+                    LIMIT %s, 20", self['id'], site_url, offset)
 
 
     def get_group_feeds(self, site_group):
-        cursor =  self.cursor()
+        cursor = self.cursor()
 
         try:
-            if site_group :
+            if site_group:
                 cursor.execute("SELECT `site_url`, `name`\
                                 FROM `rss_user_feeds` \
                                 WHERE `user_id` = %s AND `site_group` = %s\
                                 GROUP BY `site_url`",
-                                (self['id'], site_group))
+                               (self['id'], site_group))
             else:
                 cursor.execute("SELECT `site_url`, `name`\
                                 FROM `rss_user_feeds`\
                                 WHERE `user_id` = %s  AND `site_group` IS NULL",
-                                (self['id']))
-
+                               (self['id']))
 
             site_feeds = cursor.fetchall()
 
@@ -122,12 +123,12 @@ class User(Model):
         finally:
             cursor.close()
 
-        group = { "site_group" : site_group, "feeds" : site_feeds}
+        group = {"site_group": site_group, "feeds": site_feeds}
         return group
 
     def get_groups(self):
 
-        cursor =  self.cursor()
+        cursor = self.cursor()
 
         try:
             command = cursor.execute("SELECT `rss_user_feeds`.`site_group`,`rss_user_feeds`.`site_url`, \
@@ -152,7 +153,9 @@ class User(Model):
     def _on_auth(self, email):
         cursor = self.cursor()
         try:
-            command = cursor.execute("""SELECT `id`, `email`, `encrypted_password`, `password_salt` FROM `rss_users` WHERE `email` = %s""" ,(email))
+            command = cursor.execute(
+                """SELECT `id`, `email`, `encrypted_password`, `password_salt` FROM `rss_users` WHERE `email` = %s""",
+                (email))
             if command == 1:
                 self._data = cursor.fetchone()
         except MySQLdb.Error, e:
@@ -165,7 +168,7 @@ class User(Model):
     def _find_by_email(self, email):
         cursor = self.cursor()
         try:
-            command = cursor.execute("""SELECT `id`, `email` FROM `rss_users` WHERE `email` = %s""" ,(email))
+            command = cursor.execute("""SELECT `id`, `email` FROM `rss_users` WHERE `email` = %s""", (email))
             if command == 1:
                 self._data = cursor.fetchone()
         except MySQLdb.Error, e:
@@ -176,10 +179,9 @@ class User(Model):
             cursor.close()
 
 
-
-
     def _check_password(self, submitted_password):
-        return self._data["encrypted_password"] == self._secure_hash("%s--%s" %(self._data["password_salt"], submitted_password ))
+        return self._data["encrypted_password"] == self._secure_hash(
+            "%s--%s" % (self._data["password_salt"], submitted_password ))
 
 
     def _encrypt_password(self, submmited_password):
@@ -190,7 +192,7 @@ class User(Model):
         return self._encrypt(submmited_password)
 
     def _encrypt(self, text):
-        return self._secure_hash("%s--%s" %(self._salt, text))
+        return self._secure_hash("%s--%s" % (self._salt, text))
 
     def _secure_hash(self, text):
 
@@ -206,7 +208,8 @@ class User(Model):
 
         cursor = self.cursor()
         try:
-            cursor.execute("""INSERT INTO `rss_users` VALUE(NULL, %s, %s, %s, NULL, NULL, 0) """, (email, encrypted_password , self._salt))
+            cursor.execute("""INSERT INTO `rss_users` VALUE(NULL, %s, %s, %s, NULL, NULL, 0) """,
+                           (email, encrypted_password, self._salt))
             self.commit()
         except MySQLdb.Error, e:
             self.rollback()
@@ -214,15 +217,18 @@ class User(Model):
             return False
 
         return True
+
     def _insert_init_feeds(self):
         cursor = self.cursor()
         try:
-            cursor.executemany("""INSERT INTO `rss_users` VALUE(NULL, %s, %s, %s, NULL, NULL, 0) """, (email, encrypted_password , self._salt))
+            cursor.executemany("""INSERT INTO `rss_users` VALUE(NULL, %s, %s, %s, NULL, NULL, 0) """,
+                               (email, encrypted_password, self._salt))
             self.commit()
         except MySQLdb.Error, e:
             self.rollback()
             logging.error("insert feeds user failed error : %s", e.args[1])
             return False
+
     @staticmethod
     def create(email, password):
 

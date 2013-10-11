@@ -1,65 +1,64 @@
 {% extends  "layouts/base.html" %}
 
 {% block header %}
-    <title>登录</title>
-    <link rel="stylesheet" type="text/css" href="{{static_url("css/base.css")}}" />
-    <link rel="stylesheet" type="text/css" href="{{static_url("css/form.css")}}" />
-    <link rel="stylesheet" type="text/css" href="{{static_url("css/button-style.css")}}" />
-    <script src="static/js/jquery-1.8.2.min.js"></script>
-    <script src="/static/js/form-vaild.js"></script>
-    <script>
-        FormValider.initailize('#login-form', '#login-submit');
-    </script>
-    
-    
+<title>登录</title>
+<link rel="stylesheet" type="text/css" href="{{static_url(" css/base.css")}}" />
+<link rel="stylesheet" type="text/css" href="{{static_url(" css/form.css")}}" />
+<link rel="stylesheet" type="text/css" href="{{static_url(" css/button-style.css")}}" />
+<script src="static/js/jquery-1.8.2.min.js"></script>
+<script src="/static/js/form-vaild.js"></script>
+<script>
+    FormValider.initailize('#login-form', '#login-submit');
+</script>
+
+
 {% end %}
 
 {% block main_header %}
-    <img id="logo"  src="{{static_url("images/main-logo.png")}}"/>
+<img id="logo" src="{{static_url(" images/main-logo.png")}}"/>
 {% end %}
-        
+
 {% block content %}
-    <div id="left-content">
-        <img id="content-pic" src="{{static_url("images/pic_left.png")}}"/ >
+<div id="left-content">
+    <img id="content-pic" src="{{static_url(" images/pic_left.png")}}"/ >
+</div>
+
+<div id="right-content">
+    <div id="info">
+        <p>用户登录</p>
     </div>
-            
-    <div id="right-content">
-        <div id="info"> 
-            <p>用户登录</p>
+
+    <!-- 登录表格-->
+    <form id="login-form" action="/login" method="post">
+
+
+        <div id="email-div">
+            <label for="Email">用户邮箱</label>
+            <input id="Email" type="text" name="Email" placeholder="请正确填写"
+                   onchange="FormValider.check_filed('#Email', 'email')"/>
         </div>
-        
-        <!-- 登录表格-->
-        <form id="login-form" action="/login" method="post">
-            
-            
-            
-            <div id="email-div">
-                <label for="Email">用户邮箱</label>
-                <input id="Email" type="text" name="Email" placeholder="请正确填写" onchange="FormValider.check_filed('#Email', 'email')"/> 
+        <div id="password-div">
+            <label for="Password">用户密码</label>
+            <input id="Password" type="password" name="Password" placeholder="不少于六数"/>
+        </div>
+
+
+        <div id="controll-div">
+            <div id="submit-div">
+                <input id="login-submit" class="p-button p-button-submit" type="submit" value="登   录"/>
             </div>
-            <div id="password-div">
-                <label for="Password">用户密码</label>
-                <input id="Password" type="password"  name="Password" placeholder="不少于六数"/> 
+            <div id="link-div">
+                <a href="/register" class="link-go"><p>注 册</p></a>
             </div>
-            
-          
-                    
-            <div id="controll-div">
-                <div id="submit-div">
-                    <input id="login-submit" class="p-button p-button-submit"  type="submit" value="登   录" />    
-                </div>
-                 <div id="link-div">
-                     <a  href="/register" class="link-go"><p>注   册</p></a>
-                </div>
-                
-            </div>
-       </form>
-       
-   </div>
+
+        </div>
+    </form>
+
+</div>
 {% end %}
 
 {% block footer %}
-    {% include "layouts/footer.html" %}
+{% include "layouts/footer.html" %}
 {% end %}
     
   
