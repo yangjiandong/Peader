@@ -57,12 +57,16 @@ function load_group_menu(){
 }
 
 function load_groups(groups){
+    //alert(groups.length)
+
 	//var groups = JSON.parse(data);
 			var groups_div = '';
 			var site_group = null;
 			var group;
 			for(var i = 0; i < groups.length; i++) {
 				group = groups[i];
+				//alert(group)
+
 				if(site_group != group.site_group || i == 0){
 					groups_div += '<li class="sub-group"><div class="group-tab"><div class="sub-group-icon"></div><div class="group-name">';
 					if(group.site_group == null){

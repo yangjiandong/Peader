@@ -71,7 +71,10 @@ class RssEntry:
         return self._get_entry_md5()
     
     def _get_entry_md5(self):
-        
+        import logging
+        logging.info('get_entry_md5')
+        logging.info(self.title)
+
         return hashlib.md5(self.title + self.description).hexdigest()
     
     def _description(self):

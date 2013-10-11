@@ -15,12 +15,8 @@ class HomeHandler(BaseHandler):
         user = self.get_current_user()
         if user == None:
             self.redirect("/login")
-        
-       
-        self.render("index.html", user = user, gravatar_for = make_gravatar_url)
-
-        
-       
+        else:
+            self.render("index.html", user = user, gravatar_for = make_gravatar_url)
     
     def update_user_entry(self, user_id):
         user_feed = UserFeed()

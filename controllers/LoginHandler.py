@@ -12,7 +12,8 @@ class LoginHandler(BaseHandler):
         user = self.get_current_user()
         if user == None:
             self.render("login.html")
-        self.redirect('/')
+        else:
+            self.redirect('/')
        # self.set_secure_cookie("member_auth", user['email'])
         
     
