@@ -27,22 +27,16 @@ class RssCrawler:
 
 
     def add_entry(self, rss_entry):
-
         self.entries.append(rss_entry)
-
 
     def run(self):
         self.update_site_entry()
 
-
     def update_site_entry(self):
         for rss_entry in self.entries:
-
             entry = Entry.find_by_link(rss_entry.link)
             if entry.empty:
-
                 Entry.create(rss_entry, self.site_url)
-
             elif entry.entry_md5 != rss_entry.entry_md5:
             #               print "rss_link : %s" %(rss_entry.link)
             #               print "link : %s" %(entry['link'])
@@ -51,6 +45,10 @@ class RssCrawler:
                 entry['description'] = rss_entry.description
                 entry['title'] = rss_entry.title
                 #               print "After entry_md5 : %s"  %(entry.entry_md5())
+                import logging
+                logging.info(entry['title'])
+                print entry['title']
+
                 entry.save()
 
 
@@ -102,15 +100,13 @@ class RssEntry:
         return self.entry.author
 
     def __str__(self):
-
         return """RssEntry : { 
       title : "%s",
        link : "%s",
      author : "%s",
-description : 
-  "%s", 
+description : "%s",
         md5 : "%s"
-}\n""" % (self.title, self.link, self.author, self.description, self.entry_md5)
+        }\n""" % (self.title, self.link, self.author, self.description, self.entry_md5)
 
 
 

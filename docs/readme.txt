@@ -9,4 +9,9 @@
     reload(sys)
     sys.setdefaultencoding('utf-8')
 
+    2. git@github.com:yangjiandong/Peader.git
+    git tag 20131011
+    git push --tags
+
+
     --END

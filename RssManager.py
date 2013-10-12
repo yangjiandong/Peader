@@ -50,6 +50,10 @@ class RssManagerPool():
                 for rss_site in rss_sites:
                     self.put_task(RssCrawler(rss_site))
 
+            import datetime
+            print datetime.datetime.now()
+            print "begin crawler..."
+
             time.sleep(5 * 60)
 
     def put_task(self, task):
