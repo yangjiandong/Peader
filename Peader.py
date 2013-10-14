@@ -58,17 +58,12 @@ class RssWebReaderApp(tornado.web.Application):
         )
 
         model.Model.initailize(self.db_settings)
-
         tornado.web.Application.__init__(self, handlers, **settings)
-
 
 if __name__ == "__main__":
     tornado.options.parse_command_line()
-
     server = tornado.httpserver.HTTPServer(RssWebReaderApp())
-
     server.listen(options.port)
-
     tornado.ioloop.IOLoop.instance().start()
 
 
