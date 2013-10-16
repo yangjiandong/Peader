@@ -14,12 +14,10 @@ class User(Model):
                密码加密使用sha224和加盐保护"""
 
     def __init__(self):
-
         Model.__init__(self)
 
     @staticmethod
     def find_by_email(email):
-
         user = User()
         user._find_by_email(email)
         return user
@@ -99,7 +97,6 @@ class User(Model):
                     ORDER BY `rss_site_entries`.`created_at` DESC \
                     LIMIT %s, 20", self['id'], site_url, offset)
 
-
     def get_group_feeds(self, site_group):
         cursor = self.cursor()
 
@@ -127,7 +124,6 @@ class User(Model):
         return group
 
     def get_groups(self):
-
         cursor = self.cursor()
 
         try:
@@ -148,7 +144,6 @@ class User(Model):
             cursor.close()
 
         return groups
-
 
     def _on_auth(self, email):
         cursor = self.cursor()
@@ -173,16 +168,14 @@ class User(Model):
                 self._data = cursor.fetchone()
         except MySQLdb.Error, e:
 
-            logging.error("Insert entry Failed error : %s", e.args[1])
+            logging.error("Select entry Failed error : %s", e.args[1])
 
         finally:
             cursor.close()
 
-
     def _check_password(self, submitted_password):
         return self._data["encrypted_password"] == self._secure_hash(
-            "%s--%s" % (self._data["password_salt"], submitted_password ))
-
+            "%s--%s" % (self._data["password_salt"], submitted_password))
 
     def _encrypt_password(self, submmited_password):
 
@@ -231,7 +224,6 @@ class User(Model):
 
     @staticmethod
     def create(email, password):
-
         user = User()
         return user._create(email, password)
 

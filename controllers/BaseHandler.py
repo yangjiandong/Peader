@@ -23,7 +23,8 @@ class BaseHandler(tornado.web.RequestHandler):
 
     def get_current_user(self):
         email = self.get_secure_cookie("member_auth")
-        if not email: return None
+        if not email:
+            return None
 
         user = User.find_by_email(email)
         return user

@@ -24,12 +24,10 @@ class Model:
 
 
     def __init__(self):
-
         self._init_settings()
 
 
     def _init_settings(self):
-
         self.host = Model._db_settings["host"]
         self._db = None
         self._data = None
@@ -39,8 +37,8 @@ class Model:
 
     def query(self, query, *parameters):
         cursor = self.cursor()
-        try:
 
+        try:
             cursor.execute(query, parameters)
             columns = cursor.fetchall()
             return columns
@@ -62,13 +60,11 @@ class Model:
         self.close()
 
     def close(self):
-
         if getattr(self, "_db", None) is not None:
             self._db.close()
             self._db = None
 
     def reconnect(self):
-
         self.close()
         self._db = MySQLdb.connect(**Model._db_settings)
         print self._db
@@ -81,14 +77,13 @@ class Model:
 
     def cursor(self, cursorType=MySQLdb.cursors.DictCursor):
         self._ensure_connected()
-        if cursorType == None:
+        if None == cursorType:
             return self._db.cursor()
 
         return self._db.cursor(cursorType)
 
 
     def _ensure_connected(self):
-
         if self._db is None or (time.time() - self._last_use_sec > self.max_idle_sec):
             self.reconnect()
 
@@ -97,7 +92,7 @@ class Model:
     @property
     def empty(self):
         is_empty = False
-        if self._data == None:
+        if None == self._data:
             is_empty = True
         return is_empty
 
@@ -107,7 +102,6 @@ class Model:
 
     @staticmethod
     def destory():
-
         raise NotImplementedError("destory")
 
 
