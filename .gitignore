@@ -6,3 +6,4 @@
 .settings/
 *.pyo
 /.idea
+/config/settings.py
