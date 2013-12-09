@@ -13,15 +13,16 @@ from config.settings import *
 
 
 class RssManagerPool():
+
     """limit : 设置每次获取更新网站的个数
         thread_threshold： 设置更新网站内容的线程工人数
         例子：
          db_settings = dict(
-                               use_unicode = True, 
+                               use_unicode = True,
                                    charset = "utf8",
-                                      host = options.mysql_host, 
+                                      host = options.mysql_host,
                                         db = options.mysql_database,
-                                     user  = options.mysql_user, 
+                                     user  = options.mysql_user,
                                     passwd = options.mysql_password,
                                )
     Model.initailize(db_settings)
@@ -46,7 +47,8 @@ class RssManagerPool():
             print "site count : %s" % (site_count)
             loops = site_count / self.query_limit + 1
             for i in range(loops):
-                rss_sites = RssSite.get_site_by_limit_offset(self.query_limit, offset=i)
+                rss_sites = RssSite.get_site_by_limit_offset(
+                    self.query_limit, offset=i)
                 for rss_site in rss_sites:
                     self.put_task(RssCrawler(rss_site))
 
@@ -100,8 +102,3 @@ if __name__ == "__main__":
     Model.initailize(db_settings)
     rss_manager = RssManagerPool.instance(5, 5)
     rss_manager.run()
-        
-        
-        
-        
-

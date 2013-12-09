@@ -11,19 +11,18 @@ from time import strftime, gmtime
 
 
 class RssSite(Model):
+
     def __init__(self):
-
         Model.__init__(self)
-
 
     @staticmethod
     def get_site_count():
         rss_site = RssSite()
         cursor = rss_site.cursor(MySQLdb.cursors.Cursor)
         try:
-            cursor.execute("SELECT COUNT(*) AS `site_count`  FROM `rss_sites`", )
+            cursor.execute(
+                "SELECT COUNT(1) AS `site_count`  FROM `rss_sites`", )
             site_count = cursor.fetchone()
-
 
         except MySQLdb.Error, e:
             logging.error("query falied Failed error : %s", e.args[1])
@@ -44,6 +43,7 @@ class RssSite(Model):
 
         rss_site = RssSite()
         cursor = rss_site.cursor(MySQLdb.cursors.DictCursor)
+
         try:
 
             cursor.execute("SELECT `url`, `name`, `content_md5` FROM `rss_sites` force index(`url_crc32`) \
@@ -60,7 +60,6 @@ class RssSite(Model):
 
         return rss_site
 
-
     @staticmethod
     def get_site_by_limit_offset(limit=100, offset=0):
 
@@ -76,7 +75,6 @@ class RssSite(Model):
             for site in sites:
                 rss_sites.append(RssSite.new(site))
 
-
         except MySQLdb.Error, e:
             logging.error("Insert entry Failed error : %s", e.args[1])
 
@@ -84,13 +82,12 @@ class RssSite(Model):
             cursor.close()
         return rss_sites
 
-
     def _make_url_hash(self, url):
-        """在python 3.0中 binasccicrc32() 返回范围  [0, 2**32-1] 
-               此版本返回 范围  [-2**31, 2**31-1] 
-        MySQL的CRC32也是 [0, 2**32-1] 
+        """在python 3.0中 binasccicrc32() 返回范围  [0, 2**32-1]
+               此版本返回 范围  [-2**31, 2**31-1]
+        MySQL的CRC32也是 [0, 2**32-1]
         """
-        #使其返回正整数， 在python 2.7.3中
+        # 使其返回正整数， 在python 2.7.3中
         return (crc32(url) & 0xFFFFFFFF)
 
     def update_md5(self, content_md5):
@@ -112,10 +109,3 @@ class RssSite(Model):
             cursor.close()
 
         return True
-        
-        
-    
-   
-    
-        
-        
