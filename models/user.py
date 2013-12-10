@@ -23,6 +23,19 @@ class User(Model):
         return user
 
     @staticmethod
+    def find_by_email_au(email, password):
+        logging.info(email)
+        logging.info(password)
+
+        user = User()
+        user._on_auth(email)
+        if user._data :
+            return user
+            #not aut
+        user._data = None
+        return user
+        
+    @staticmethod
     def find_by_email_and_password(email, password):
         logging.info(email)
         logging.info(password)

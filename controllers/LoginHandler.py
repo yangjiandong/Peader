@@ -22,7 +22,8 @@ class LoginHandler(BaseHandler):
         email = self.get_argument("Email", default=None)
         password = self.get_argument("Password", default=None)
 
-        user = User.find_by_email_and_password(email, password)
+        #user = User.find_by_email_and_password(email, password)
+        user = User.find_by_email_au(email, password)
         #self.write(user['email'])
         self.set_secure_cookie("member_auth", user['email'])
         self.redirect('/')
