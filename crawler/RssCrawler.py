@@ -6,6 +6,7 @@ from models.entry import Entry
 
 
 class RssCrawler:
+
     def __init__(self, rss_site):
         self.entries = []
         self.site_url = rss_site['url']
@@ -25,7 +26,6 @@ class RssCrawler:
         #        for entry in entries:
         #            self.add_entry(RssEntry(entry))
 
-
     def add_entry(self, rss_entry):
         self.entries.append(rss_entry)
 
@@ -41,10 +41,10 @@ class RssCrawler:
             #               print "rss_link : %s" %(rss_entry.link)
             #               print "link : %s" %(entry['link'])
             #               print "entry_md5     : %s"  %(entry.entry_md5())
-            #               print "rss_entry_md5 : %s"  %(rss_entry.entry_md5())
+            # print "rss_entry_md5 : %s"  %(rss_entry.entry_md5())
                 entry['description'] = rss_entry.description
                 entry['title'] = rss_entry.title
-                #               print "After entry_md5 : %s"  %(entry.entry_md5())
+                # print "After entry_md5 : %s"  %(entry.entry_md5())
                 import logging
                 logging.info(entry['title'])
                 print entry['title']
@@ -53,6 +53,7 @@ class RssCrawler:
 
 
 class RssEntry:
+
     def __init__(self, entry):
 
         self.entry = entry
@@ -88,27 +89,19 @@ class RssEntry:
         return description
 
     def _link(self):
-
         return self.entry.link
 
     def _title(self):
-
         return self.entry.title
 
     def _author(self):
-
         return self.entry.author
 
     def __str__(self):
-        return """RssEntry : { 
+        return """RssEntry : {
       title : "%s",
        link : "%s",
      author : "%s",
 description : "%s",
         md5 : "%s"
         }\n""" % (self.title, self.link, self.author, self.description, self.entry_md5)
-
-
-
-
-    

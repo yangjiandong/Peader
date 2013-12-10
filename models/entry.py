@@ -12,11 +12,9 @@ from time import strftime, gmtime
 
 class Entry(Model):
     def __init__(self):
-
         Model.__init__(self)
 
     def _create(self, rss_entry, site_url):
-
         cursor = self.cursor()
         try:
             cursor.execute("INSERT INTO `rss_site_entries` VALUES(NULL, %s, %s, %s, %s, %s, %s, NULL, NULL)",
@@ -70,12 +68,10 @@ class Entry(Model):
 
     @property
     def entry_md5(self):
-
         return self['entry_md5']
 
     @staticmethod
     def find_by_link(link):
-
         entry = Entry()
         cursor = entry.cursor(MySQLdb.cursors.DictCursor)
         try:
@@ -94,10 +90,9 @@ class Entry(Model):
 
     @staticmethod
     def create(rss_entry, site_url):
-
         entry = Entry()
         return entry._create(rss_entry, site_url)
-        
-        
-        
-        
+
+
+
+
